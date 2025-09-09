@@ -1,16 +1,10 @@
 {
   "expo": {
-    "name": "bolt-expo-nativewind",
+    "name": "Unik",
     "slug": "bolt-expo-nativewind",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/splash.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff",
-      "hideExponentText": true
-    },
+    "icon": "./assets/Isologo_aqua_1.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
