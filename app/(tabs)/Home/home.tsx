@@ -87,51 +87,51 @@ export default function HomeScreen() {
             switch (sectionTitle) {
                 case 'Estilo de vida':
                     return {
-                        cardColor: '#E8F5E8', // Verde muy claro
-                        iconBgColor: '#C8E6C9', // Verde claro
-                        iconColor: '#388E3C', // Verde
+                        cardColor: '#F0F8F0', // Verde muy leve (5% más claro)
+                        iconBgColor: '#E8F5E8', // Verde suave
+                        iconColor: '#66BB6A', // Verde iOS suave
                     };
                 case 'Seguros y Vida':
                     return {
-                        cardColor: '#E3F2FD', // Azul muy claro
-                        iconBgColor: '#BBDEFB', // Azul claro
-                        iconColor: '#1976D2', // Azul
+                        cardColor: '#F5F3FF', // Morado muy leve (5% más claro)
+                        iconBgColor: '#EDE7F6', // Morado suave
+                        iconColor: '#9575CD', // Morado iOS suave
                     };
                 case 'Mis Finanzas':
                     return {
-                        cardColor: '#FFF3E0', // Naranja muy claro
-                        iconBgColor: '#FFE0B2', // Naranja claro
-                        iconColor: '#F57C00', // Naranja
+                        cardColor: '#FFFAF5', // Naranja muy leve (5% más claro)
+                        iconBgColor: '#FFF3E0', // Naranja suave
+                        iconColor: '#FFB74D', // Naranja iOS suave
                     };
                 case 'Experiencias':
                     return {
-                        cardColor: '#F3E5F5', // Morado muy claro
-                        iconBgColor: '#E1BEE7', // Morado claro
-                        iconColor: '#7B1FA2', // Morado
+                        cardColor: '#F0FDFF', // Cian muy leve (5% más claro)
+                        iconBgColor: '#E0F7FA', // Cian suave
+                        iconColor: '#4DD0E1', // Cian iOS suave
                     };
                 case 'Recursos Humanos':
                     return {
-                        cardColor: '#FCE4EC', // Rosa muy claro
-                        iconBgColor: '#F8BBD9', // Rosa claro
-                        iconColor: '#C2185B', // Rosa
+                        cardColor: '#FEF2F5', // Rosa muy leve (5% más claro)
+                        iconBgColor: '#FCE4EC', // Rosa suave
+                        iconColor: '#F06292', // Rosa iOS suave
                     };
                 case 'Mis vales':
                     return {
-                        cardColor: '#FFF8E1', // Amarillo muy claro
-                        iconBgColor: '#FFF9C4', // Amarillo claro
-                        iconColor: '#F9A825', // Amarillo
+                        cardColor: '#FFFEF8', // Amarillo muy leve (5% más claro)
+                        iconBgColor: '#FFF8E1', // Amarillo suave
+                        iconColor: '#FFD54F', // Amarillo iOS suave
                     };
                 case 'Cumplimiento':
                     return {
-                        cardColor: '#E0F2F1', // Turquesa muy claro
-                        iconBgColor: '#B2DFDB', // Turquesa claro
-                        iconColor: '#00796B', // Turquesa
+                        cardColor: '#F0FBF8', // Turquesa muy leve (5% más claro)
+                        iconBgColor: '#E0F2F1', // Turquesa suave
+                        iconColor: '#4DB6AC', // Turquesa iOS suave
                     };
                 default:
                     return {
-                        cardColor: '#FFEBEE', // Rojo muy claro
-                        iconBgColor: '#FFCDD2', // Rojo claro
-                        iconColor: '#D32F2F', // Rojo
+                        cardColor: '#FAF5FF', // Morado muy leve por defecto
+                        iconBgColor: '#F3E5F5', // Morado suave
+                        iconColor: '#BA68C8', // Morado iOS suave
                     };
             }
         };
