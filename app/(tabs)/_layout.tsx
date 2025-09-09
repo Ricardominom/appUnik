@@ -12,30 +12,37 @@ export default function TabLayout() {
           display: ['index', 'email-login', 'landing', 'create-account'].includes(route.name) 
             ? 'none' 
             : 'flex',
-          backgroundColor: 'white',
-          borderTopWidth: 1,
-          borderTopColor: '#E5E7EB',
-          height: 85,
-          paddingBottom: 25,
-          paddingTop: 10,
-          shadowColor: '#000',
+          backgroundColor: 'rgba(248, 249, 250, 0.95)',
+          borderTopWidth: 0,
+          height: 90,
+          paddingBottom: 30,
+          paddingTop: 12,
+          paddingHorizontal: 0,
+          shadowColor: '#000000',
           shadowOffset: {
             width: 0,
-            height: -2,
+            height: -8,
           },
           shadowOpacity: 0.1,
-          shadowRadius: 8,
-          elevation: 10,
+          shadowRadius: 20,
+          elevation: 15,
+          borderRadius: 0,
+          backdropFilter: 'blur(20px)',
+          position: 'absolute',
         },
-        tabBarActiveTintColor: '#6366F1',
-        tabBarInactiveTintColor: '#9CA3AF',
+        tabBarActiveTintColor: '#007AFF',
+        tabBarInactiveTintColor: '#8E8E93',
         tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500',
+          fontSize: 10,
+          fontWeight: '600',
           marginTop: 4,
+          letterSpacing: -0.2,
         },
         tabBarIconStyle: {
           marginTop: 2,
+        },
+        tabBarItemStyle: {
+          paddingVertical: 4,
         },
       })}>
       <Tabs.Screen
@@ -69,36 +76,52 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+          title: 'Inicio',
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons 
+              name={focused ? "home" : "home-outline"} 
+              size={focused ? 26 : 24} 
+              color={color} 
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="dashboard"
         options={{
-          title: 'Activity',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="pulse" size={size} color={color} />
+          title: 'Actividad',
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons 
+              name={focused ? "stats-chart" : "stats-chart-outline"} 
+              size={focused ? 26 : 24} 
+              color={color} 
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="favorites"
         options={{
-          title: 'Favorites',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="heart" size={size} color={color} />
+          title: 'Favoritos',
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons 
+              name={focused ? "heart" : "heart-outline"} 
+              size={focused ? 26 : 24} 
+              color={color} 
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
+          title: 'Perfil',
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons 
+              name={focused ? "person-circle" : "person-circle-outline"} 
+              size={focused ? 26 : 24} 
+              color={color} 
+            />
           ),
         }}
       />

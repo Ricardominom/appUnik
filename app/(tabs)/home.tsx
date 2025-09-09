@@ -215,6 +215,12 @@ export default function HomeScreen() {
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Buenos días</Text>
                     <Text style={styles.subGreeting}>¿Qué haremos hoy?</Text>
+                    
+                    {/* Search Bar */}
+                    <TouchableOpacity style={styles.searchContainer}>
+                        <Ionicons name="search-outline" size={18} color="#8E8E93" style={styles.searchIcon} />
+                        <Text style={styles.searchText}>Buscar servicios...</Text>
+                    </TouchableOpacity>
                 </View>
 
                 {/* Category Tabs */}
@@ -252,6 +258,33 @@ const styles = StyleSheet.create({
         fontSize: 19.3,
         color: '#8E8E93',
         marginTop: 2,
+        fontWeight: '400',
+    },
+    searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 12,
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        marginTop: 16,
+        borderWidth: 1,
+        borderColor: '#E5E5EA',
+        shadowColor: '#000000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.04,
+        shadowRadius: 4,
+        elevation: 1,
+    },
+    searchIcon: {
+        marginRight: 10,
+    },
+    searchText: {
+        color: '#8E8E93',
+        fontSize: 16,
         fontWeight: '400',
     },
     content: {
