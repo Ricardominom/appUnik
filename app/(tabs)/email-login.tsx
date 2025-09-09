@@ -8,6 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { ArrowLeft, Mail, Lock } from 'lucide-react-native';
 import { useAuthContext } from '@/context/AuthContext';

@@ -5,11 +5,30 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/Isologo_aqua_1.png",
+    "splash": {
+      "image": "./assets/Isologo_aqua_1.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#6366F1"
+    },
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "splash": {
+        "image": "./assets/Isologo_aqua_1.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#6366F1",
+        "hideExponentText": true
+      }
+    },
+    "android": {
+      "splash": {
+        "image": "./assets/Isologo_aqua_1.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#6366F1",
+        "hideExponentText": true
+      }
     },
     "web": {
       "bundler": "metro",
