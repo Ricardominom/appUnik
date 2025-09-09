@@ -141,36 +141,8 @@ export default function EmailLoginScreen() {
   });
 
   const handleLogin = async () => {
-    // Reset errors
-    setEmailError('');
-    setPasswordError('');
-
-    // Validation
-    let hasErrors = false;
-
-    const emailValidation = validateEmail(email);
-    if (emailValidation) {
-      setEmailError(emailValidation);
-      hasErrors = true;
-    }
-
-    const passwordValidation = validatePassword(password);
-    if (passwordValidation) {
-      setPasswordError(passwordValidation);
-      hasErrors = true;
-    }
-
-    if (hasErrors) return;
-
-    // Attempt login
-    const result = await login(email, password);
-    
-    if (result.success) {
-      // Navigate to main app or dashboard
-      router.replace('/dashboard');
-    } else {
-      Alert.alert('Error', result.error || 'Error al iniciar sesión');
-    }
+    // Navegación directa a Home sin validaciones (temporal)
+    router.replace('/home');
   };
 
   const handleBack = () => {
