@@ -2,6 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
+import { 
+    SegurosVidaSection, 
+    SegurosEmpresaSubcategory, 
+    FamiliaresSubcategory, 
+    FinanzasSection, 
+    EstiloVidaSection,
+    ExperienciasSection,
+    RecursosHumanosSection,
+    MisValesSection,
+    CumplimientoSection
+} from '@/components/home';
 
 export default function HomeScreen() {
     const [activeCategory, setActiveCategory] = useState(0);
@@ -17,61 +28,6 @@ export default function HomeScreen() {
         { id: 5, name: 'Mi RH', color: colors.secondary[400] },
         { id: 6, name: 'Mis vales', color: colors.warning },
         { id: 7, name: 'Cumplimiento', color: colors.primary[400] },
-    ];
-
-    const segurosVida = [
-        { id: 1, title: 'Seguro Empresa', icon: 'business-outline' },
-        { id: 2, title: 'Familiares', icon: 'home-outline' },
-        { id: 3, title: 'Seguro de Auto', icon: 'car-outline' },
-        { id: 4, title: 'Descubre tu Seguro Ideal', icon: 'search-outline' },
-    ];
-
-    const misFinanzas = [
-        { id: 1, title: 'Prestamos', icon: 'cash-outline' },
-        { id: 2, title: 'Salario on demand', icon: 'card-outline' },
-        { id: 3, title: 'Inversiones', icon: 'trending-up-outline' },
-    ];
-
-    const experiencias = [
-        { id: 1, title: 'Experiencias y descuentos', icon: 'gift-outline' },
-    ];
-
-    const estiloVida = [
-        { id: 1, title: 'Gyms y Studios', icon: 'fitness-outline' },
-    ];
-
-    // Nuevas secciones de la segunda imagen
-    const recursosHumanos = [
-        { id: 1, title: 'Mi portal de Recursos Humanos', icon: 'trophy-outline' },
-    ];
-
-    const misVales = [
-        { id: 1, title: 'Vales de despensa', icon: 'cash-outline' },
-        { id: 2, title: 'TAG Gasolina', icon: 'car-outline' },
-        { id: 3, title: 'Vale Gasolina', icon: 'car-sport-outline' },
-        { id: 4, title: 'Vale Restaurante', icon: 'restaurant-outline' },
-        { id: 5, title: 'Ver todos', icon: 'grid-outline' },
-    ];
-
-    const cumplimiento = [
-        { id: 1, title: 'NOM 035', icon: 'checkmark-circle-outline' },
-        { id: 2, title: 'NOM 037', icon: 'shield-checkmark-outline' },
-    ];
-
-    // Subcategorías específicas
-    const segurosEmpresaSubcategories = [
-        { id: 1, title: 'Seguro de Vida', icon: 'heart-outline' },
-        { id: 2, title: 'Gastos Médicos Mayores', icon: 'medical-outline' },
-        { id: 3, title: 'Gastos Médicos Menores', icon: 'medical-outline' },
-        { id: 4, title: 'Seguro accidentes', icon: 'shield-outline' },
-    ];
-
-    const familiaresSubcategories = [
-        { id: 1, title: 'Seguro de Vida', icon: 'heart-outline' },
-        { id: 2, title: 'Plan para el retiro', icon: 'person-outline' },
-        { id: 3, title: 'Asistencia Familia', icon: 'people-outline' },
-        { id: 4, title: 'Seguro de casa', icon: 'home-outline' },
-        { id: 5, title: 'Plan educativo', icon: 'school-outline' },
     ];
 
     // Función para manejar click en tarjetas principales
@@ -160,119 +116,19 @@ export default function HomeScreen() {
         );
     };
 
-    const renderServiceGrid = (title: string, services: any[]) => {
-        // Asignar colores únicos por sección
-        const getSectionColors = (sectionTitle: string) => {
-            switch (sectionTitle) {
-                case 'Estilo de vida':
-                    return {
-                        cardColor: '#F0F8F0', // Verde muy leve (5% más claro)
-                        iconBgColor: '#E8F5E8', // Verde suave
-                        iconColor: '#66BB6A', // Verde iOS suave
-                    };
-                case 'Seguros y Vida':
-                    return {
-                        cardColor: '#F5F3FF', // Morado muy leve (5% más claro)
-                        iconBgColor: '#EDE7F6', // Morado suave
-                        iconColor: '#9575CD', // Morado iOS suave
-                    };
-                case 'Mis Finanzas':
-                    return {
-                        cardColor: '#FFFAF5', // Naranja muy leve (5% más claro)
-                        iconBgColor: '#FFF3E0', // Naranja suave
-                        iconColor: '#FFB74D', // Naranja iOS suave
-                    };
-                case 'Experiencias':
-                    return {
-                        cardColor: '#F0FDFF', // Cian muy leve (5% más claro)
-                        iconBgColor: '#E0F7FA', // Cian suave
-                        iconColor: '#4DD0E1', // Cian iOS suave
-                    };
-                case 'Recursos Humanos':
-                    return {
-                        cardColor: '#FEF2F5', // Rosa muy leve (5% más claro)
-                        iconBgColor: '#FCE4EC', // Rosa suave
-                        iconColor: '#F06292', // Rosa iOS suave
-                    };
-                case 'Mis vales':
-                    return {
-                        cardColor: '#FFFEF8', // Amarillo muy leve (5% más claro)
-                        iconBgColor: '#FFF8E1', // Amarillo suave
-                        iconColor: '#FFD54F', // Amarillo iOS suave
-                    };
-                case 'Cumplimiento':
-                    return {
-                        cardColor: '#F0FBF8', // Turquesa muy leve (5% más claro)
-                        iconBgColor: '#E0F2F1', // Turquesa suave
-                        iconColor: '#4DB6AC', // Turquesa iOS suave
-                    };
-                case 'Seguros empresa':
-                    return {
-                        cardColor: '#F5F3FF', // Morado muy leve (5% más claro)
-                        iconBgColor: '#EDE7F6', // Morado suave
-                        iconColor: '#9575CD', // Morado iOS suave
-                    };
-                case 'Seguros familiares':
-                    return {
-                        cardColor: '#F5F3FF', // Morado muy leve (5% más claro)
-                        iconBgColor: '#EDE7F6', // Morado suave
-                        iconColor: '#9575CD', // Morado iOS suave
-                    };
-                default:
-                    return {
-                        cardColor: '#FAF5FF', // Morado muy leve por defecto
-                        iconBgColor: '#F3E5F5', // Morado suave
-                        iconColor: '#BA68C8', // Morado iOS suave
-                    };
-            }
-        };
-
-        const sectionColors = getSectionColors(title);
-
-        return (
-            <View style={styles.section}>
-                <Text style={styles.sectionTitle}>{title}</Text>
-                <View style={styles.serviceGrid}>
-                    {services.map((service, index) => (
-                        <TouchableOpacity 
-                            key={service.id} 
-                            style={[
-                                styles.serviceCard,
-                                { backgroundColor: sectionColors.cardColor }
-                            ]}
-                            onPress={() => handleServiceCardPress(service.title)}
-                        >
-                            <View style={[
-                                styles.serviceIconContainer,
-                                { backgroundColor: sectionColors.iconBgColor }
-                            ]}>
-                                <Ionicons 
-                                    name={service.icon as any} 
-                                    size={24} 
-                                    color={sectionColors.iconColor} 
-                                />
-                            </View>
-                            <Text style={styles.serviceTitle}>{service.title}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-            </View>
-        );
-    };
-
     const renderCategoryContent = () => {
         // Si estamos mostrando subcategorías, renderizar el contenido específico
         if (showSubcategories) {
             if (selectedSubcategory === 'Seguros empresa') {
                 return (
                     <>
-                        {renderServiceGrid('Seguros empresa', segurosEmpresaSubcategories)}
+                        <SegurosEmpresaSubcategory onServicePress={handleServiceCardPress} />
                     </>
                 );
             } else if (selectedSubcategory === 'Seguros familiares') {
                 return (
                     <>
-                        {renderServiceGrid('Seguros familiares', familiaresSubcategories)}
+                        <FamiliaresSubcategory onServicePress={handleServiceCardPress} />
                     </>
                 );
             }
@@ -283,55 +139,55 @@ export default function HomeScreen() {
             case 0: // Todo
                 return (
                     <>
-                        {renderServiceGrid('Estilo de vida', estiloVida)}
-                        {renderServiceGrid('Seguros y Vida', segurosVida)}
-                        {renderServiceGrid('Mis Finanzas', misFinanzas)}
-                        {renderServiceGrid('Experiencias', experiencias)}
-                        {renderServiceGrid('Recursos Humanos', recursosHumanos)}
-                        {renderServiceGrid('Mis vales', misVales)}
-                        {renderServiceGrid('Cumplimiento', cumplimiento)}
+                        <EstiloVidaSection onServicePress={handleServiceCardPress} />
+                        <SegurosVidaSection onServicePress={handleServiceCardPress} />
+                        <FinanzasSection onServicePress={handleServiceCardPress} />
+                        <ExperienciasSection onServicePress={handleServiceCardPress} />
+                        <RecursosHumanosSection onServicePress={handleServiceCardPress} />
+                        <MisValesSection onServicePress={handleServiceCardPress} />
+                        <CumplimientoSection onServicePress={handleServiceCardPress} />
                     </>
                 );
             case 1: // Life Style
                 return (
                     <>
-                        {renderServiceGrid('Estilo de vida', estiloVida)}
+                        <EstiloVidaSection onServicePress={handleServiceCardPress} />
                     </>
                 );
             case 2: // Seguros y Asistencias
                 return (
                     <>
-                        {renderServiceGrid('Seguros y Vida', segurosVida)}
+                        <SegurosVidaSection onServicePress={handleServiceCardPress} />
                     </>
                 );
             case 3: // Finanzas
                 return (
                     <>
-                        {renderServiceGrid('Mis Finanzas', misFinanzas)}
+                        <FinanzasSection onServicePress={handleServiceCardPress} />
                     </>
                 );
             case 4: // Experiencias
                 return (
                     <>
-                        {renderServiceGrid('Experiencias', experiencias)}
+                        <ExperienciasSection onServicePress={handleServiceCardPress} />
                     </>
                 );
             case 5: // Mi RH
                 return (
                     <>
-                        {renderServiceGrid('Recursos Humanos', recursosHumanos)}
+                        <RecursosHumanosSection onServicePress={handleServiceCardPress} />
                     </>
                 );
             case 6: // Mis vales
                 return (
                     <>
-                        {renderServiceGrid('Mis vales', misVales)}
+                        <MisValesSection onServicePress={handleServiceCardPress} />
                     </>
                 );
             case 7: // Cumplimiento
                 return (
                     <>
-                        {renderServiceGrid('Cumplimiento', cumplimiento)}
+                        <CumplimientoSection onServicePress={handleServiceCardPress} />
                     </>
                 );
             default:
@@ -525,10 +381,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         lineHeight: 20,
         letterSpacing: -0.1,
-    },
-    promotionalContainer: {
-        paddingHorizontal: 20,
-        paddingVertical: 16,
     },
     promotionalCard: {
         backgroundColor: '#F8F7FF',

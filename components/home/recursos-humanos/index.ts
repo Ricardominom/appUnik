@@ -1,0 +1,1 @@
+export { RecursosHumanosSection } from './RecursosHumanosSection';

@@ -1,0 +1,1 @@
+export { EstiloVidaSection } from './EstiloVidaSection';
