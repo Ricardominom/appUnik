@@ -8,7 +8,7 @@ interface SeguroDeVidaProps {
 }
 
 export const SeguroDeVida: React.FC<SeguroDeVidaProps> = ({ onBack }) => {
-    const [activeTab, setActiveTab] = useState(0);
+    const [activeTab, setActiveTab] = useState(1);
 
     const tabs = [
         { id: 0, name: 'Seguros y Asistencias', key: 'seguros' },
@@ -104,13 +104,6 @@ export const SeguroDeVida: React.FC<SeguroDeVidaProps> = ({ onBack }) => {
 
     return (
         <View style={styles.container}>
-            {/* Back Button */}
-            <View style={styles.backButtonContainer}>
-                <TouchableOpacity onPress={onBack} style={styles.backButton}>
-                    <Ionicons name="arrow-back" size={24} color={colors.primary[500]} />
-                </TouchableOpacity>
-            </View>
-
             {/* Search Bar */}
             <View style={styles.searchContainer}>
                 <Ionicons name="search" size={18} color="#8E8E93" />
@@ -131,7 +124,13 @@ export const SeguroDeVida: React.FC<SeguroDeVidaProps> = ({ onBack }) => {
                             styles.tab,
                             activeTab === tab.id && styles.activeTab
                         ]}
-                        onPress={() => setActiveTab(tab.id)}
+                        onPress={() => {
+                            if (tab.id === 0) {
+                                onBack();
+                            } else {
+                                setActiveTab(tab.id);
+                            }
+                        }}
                     >
                         <Text style={[
                             styles.tabText,
@@ -155,31 +154,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5F5F5',
-        paddingTop: 50,
-    },
-    backButtonContainer: {
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-    },
-    backButton: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: '#FFFFFF',
-        alignItems: 'center',
-        justifyContent: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
+        paddingTop: 35,
     },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#E5E5E5',
         marginHorizontal: 16,
-        marginVertical: 16,
+        marginTop: 8,
+        marginBottom: 8,
         paddingHorizontal: 12,
         paddingVertical: 10,
         borderRadius: 8,
@@ -226,7 +209,7 @@ const styles = StyleSheet.create({
         paddingTop: 16,
     },
     tabContent: {
-        paddingBottom: 100,
+        paddingBottom: 120,
     },
     sectionTitle: {
         fontSize: 22,
