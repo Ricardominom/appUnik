@@ -5,6 +5,8 @@ import { colors } from '@/constants/colors';
 
 export default function HomeScreen() {
     const [activeCategory, setActiveCategory] = useState(0);
+    const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
+    const [showSubcategories, setShowSubcategories] = useState(false);
     
     const categories = [
         { id: 0, name: 'Todo', color: colors.primary[500] },
@@ -56,30 +58,107 @@ export default function HomeScreen() {
         { id: 2, title: 'NOM 037', icon: 'shield-checkmark-outline' },
     ];
 
-    const renderCategoryTabs = () => (
-        <View style={styles.categoryTabs}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {categories.map((category) => (
-                    <TouchableOpacity
-                        key={category.id}
-                        style={[
-                            styles.categoryTab,
-                            { backgroundColor: category.color },
-                            activeCategory === category.id && styles.activeTab
-                        ]}
-                        onPress={() => setActiveCategory(category.id)}
-                    >
-                        <Text style={[
-                            styles.categoryText,
-                            activeCategory === category.id && styles.activeCategoryText
-                        ]}>
-                            {category.name}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
-        </View>
-    );
+    // Subcategorías específicas
+    const segurosEmpresaSubcategories = [
+        { id: 1, title: 'Seguro de Vida', icon: 'heart-outline' },
+        { id: 2, title: 'Gastos Médicos Mayores', icon: 'medical-outline' },
+        { id: 3, title: 'Gastos Médicos Menores', icon: 'medical-outline' },
+        { id: 4, title: 'Seguro accidentes', icon: 'shield-outline' },
+    ];
+
+    const familiaresSubcategories = [
+        { id: 1, title: 'Seguro de Vida', icon: 'heart-outline' },
+        { id: 2, title: 'Plan para el retiro', icon: 'person-outline' },
+        { id: 3, title: 'Asistencia Familia', icon: 'people-outline' },
+        { id: 4, title: 'Seguro de casa', icon: 'home-outline' },
+        { id: 5, title: 'Plan educativo', icon: 'school-outline' },
+    ];
+
+    // Función para manejar click en tarjetas principales
+    const handleServiceCardPress = (title: string) => {
+        if (title === 'Seguro Empresa') {
+            setSelectedSubcategory('Seguros empresa');
+            setShowSubcategories(true);
+        } else if (title === 'Familiares') {
+            setSelectedSubcategory('Seguros familiares');
+            setShowSubcategories(true);
+        }
+    };
+
+    // Función para volver atrás
+    const handleBackPress = () => {
+        setShowSubcategories(false);
+        setSelectedSubcategory(null);
+    };
+
+    const renderCategoryTabs = () => {
+        if (showSubcategories) {
+            // Mostrar pestañas específicas para subcategorías
+            const subcategoryTabs = selectedSubcategory === 'Seguros empresa' 
+                ? [{ name: 'Seguros y vida' }, { name: 'Seguros empresa' }]
+                : [{ name: 'Seguros y vida' }, { name: 'Familiares' }];
+            
+            return (
+                <View style={styles.categoryTabs}>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        {subcategoryTabs.map((tab, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                style={[
+                                    styles.categoryTab,
+                                    { backgroundColor: '#E8E3FF' },
+                                    index === 1 && {
+                                        backgroundColor: '#9575CD',
+                                    }
+                                ]}
+                                onPress={() => {
+                                    if (index === 0) {
+                                        handleBackPress();
+                                    }
+                                }}
+                            >
+                                <Text style={[
+                                    styles.categoryText,
+                                    { color: '#9575CD' },
+                                    index === 1 && {
+                                        color: '#FFFFFF',
+                                        fontWeight: '600',
+                                    }
+                                ]}>
+                                    {tab.name}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </View>
+            );
+        }
+        
+        return (
+            <View style={styles.categoryTabs}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    {categories.map((category) => (
+                        <TouchableOpacity
+                            key={category.id}
+                            style={[
+                                styles.categoryTab,
+                                { backgroundColor: category.color },
+                                activeCategory === category.id && styles.activeTab
+                            ]}
+                            onPress={() => setActiveCategory(category.id)}
+                        >
+                            <Text style={[
+                                styles.categoryText,
+                                activeCategory === category.id && styles.activeCategoryText
+                            ]}>
+                                {category.name}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+            </View>
+        );
+    };
 
     const renderServiceGrid = (title: string, services: any[]) => {
         // Asignar colores únicos por sección
@@ -127,6 +206,18 @@ export default function HomeScreen() {
                         iconBgColor: '#E0F2F1', // Turquesa suave
                         iconColor: '#4DB6AC', // Turquesa iOS suave
                     };
+                case 'Seguros empresa':
+                    return {
+                        cardColor: '#F5F3FF', // Morado muy leve (5% más claro)
+                        iconBgColor: '#EDE7F6', // Morado suave
+                        iconColor: '#9575CD', // Morado iOS suave
+                    };
+                case 'Seguros familiares':
+                    return {
+                        cardColor: '#F5F3FF', // Morado muy leve (5% más claro)
+                        iconBgColor: '#EDE7F6', // Morado suave
+                        iconColor: '#9575CD', // Morado iOS suave
+                    };
                 default:
                     return {
                         cardColor: '#FAF5FF', // Morado muy leve por defecto
@@ -149,6 +240,7 @@ export default function HomeScreen() {
                                 styles.serviceCard,
                                 { backgroundColor: sectionColors.cardColor }
                             ]}
+                            onPress={() => handleServiceCardPress(service.title)}
                         >
                             <View style={[
                                 styles.serviceIconContainer,
@@ -169,6 +261,24 @@ export default function HomeScreen() {
     };
 
     const renderCategoryContent = () => {
+        // Si estamos mostrando subcategorías, renderizar el contenido específico
+        if (showSubcategories) {
+            if (selectedSubcategory === 'Seguros empresa') {
+                return (
+                    <>
+                        {renderServiceGrid('Seguros empresa', segurosEmpresaSubcategories)}
+                    </>
+                );
+            } else if (selectedSubcategory === 'Seguros familiares') {
+                return (
+                    <>
+                        {renderServiceGrid('Seguros familiares', familiaresSubcategories)}
+                    </>
+                );
+            }
+        }
+
+        // Contenido normal por categorías
         switch (activeCategory) {
             case 0: // Todo
                 return (
