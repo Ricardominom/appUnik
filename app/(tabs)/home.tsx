@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     },
     categoryTabs: {
         marginVertical: 20,
-        paddingHorizontal: 20,
+        paddingHorizontal: 0,
     },
     categoryTab: {
         paddingHorizontal: 20,
@@ -228,7 +228,8 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         minWidth: 120,
         alignItems: 'center',
-        marginRight: 15,
+        marginRight: 2,
+        marginLeft: 2,
     },
     activeTab: {
         shadowColor: '#000',
