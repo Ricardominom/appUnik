@@ -435,9 +435,9 @@ export default function LoginScreen() {
                 activeOpacity={0.8}
               >
                 <View style={styles.methodIcon}>
-                  <LogIn size={38} color={colors.primary[500]} strokeWidth={3} />
+                  <LogIn size={42} color={colors.primary[500]} strokeWidth={3} />
                 </View>
-                <Text style={styles.methodLabelLarge}>Iniciar sesión</Text>
+                <Text style={styles.methodLabelLarge}>Iniciar{'\n'}sesión</Text>
                 <Text style={styles.methodNameSmall}>Ya tengo cuenta</Text>
               </TouchableOpacity>
 
@@ -450,9 +450,9 @@ export default function LoginScreen() {
                 activeOpacity={0.8}
               >
                 <View style={styles.methodIcon}>
-                  <UserPlus size={38} color={colors.secondary[500]} strokeWidth={3} />
+                  <UserPlus size={42} color={colors.secondary[500]} strokeWidth={3} />
                 </View>
-                <Text style={styles.methodLabelLarge}>Crear cuenta</Text>
+                <Text style={styles.methodLabelLarge}>Crear{'\n'}cuenta</Text>
                 <Text style={styles.methodNameSmall}>Soy nuevo usuario</Text>
               </TouchableOpacity>
             </Animated.View>
@@ -462,17 +462,17 @@ export default function LoginScreen() {
               <Text style={styles.contactTitle}>Contáctanos</Text>
               <View style={styles.contactMethods}>
                 <TouchableOpacity style={styles.contactButton} activeOpacity={0.7}>
-                  <Phone size={20} color={colors.primary[500]} strokeWidth={2} />
+                  <Phone size={24} color={colors.primary[500]} strokeWidth={2} />
                   <Text style={styles.contactText}>Llamar</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.contactButton} activeOpacity={0.7}>
-                  <MapPin size={20} color={colors.primary[500]} strokeWidth={2} />
+                  <MapPin size={24} color={colors.primary[500]} strokeWidth={2} />
                   <Text style={styles.contactText}>Ubicación</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity style={styles.contactButton} activeOpacity={0.7}>
-                  <HelpCircle size={20} color={colors.primary[500]} strokeWidth={2} />
+                  <HelpCircle size={24} color={colors.primary[500]} strokeWidth={2} />
                   <Text style={styles.contactText}>Ayuda</Text>
                 </TouchableOpacity>
               </View>
@@ -607,14 +607,14 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: layout.horizontalMargin,
-    paddingTop: layout.getResponsiveHeight(8),
+    paddingTop: layout.getResponsiveHeight(3), // Reducido aún más de 5 a 3
     backgroundColor: 'white',
     marginTop: layout.getResponsiveHeight(25),
     borderTopLeftRadius: spacing['2xl'],
     borderTopRightRadius: spacing['2xl'],
   },
   welcomeSection: {
-    marginBottom: spacing.xl,
+    marginBottom: spacing.md, // Reducido aún más de lg a md
     alignItems: 'center',
   },
   welcomeText: {
@@ -634,29 +634,29 @@ const styles = StyleSheet.create({
   loginMethods: {
     flexDirection: 'row',
     gap: spacing.md,
-    marginBottom: spacing.lg,
-    marginTop: spacing.sm,
+    marginBottom: spacing.md, // Reducido aún más de xl a md
+    marginTop: spacing.lg,
   },
   methodButton: {
     flex: 1,
     backgroundColor: colors.primary[500],
-    borderRadius: spacing.lg,
-    padding: spacing['2xl'],
+    borderRadius: spacing.xl, // Más redondeado
+    padding: spacing['3xl'], // Más padding para tarjetas más grandes
     alignItems: 'center',
-    minHeight: layout.isSmallDevice ? 180 : 200,
-    elevation: 3,
+    minHeight: layout.isSmallDevice ? 220 : 260, // Tarjetas más altas
+    elevation: 4,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
   },
   selectedMethod: {
     backgroundColor: colors.primary[600],
     transform: [{ scale: 0.98 }],
   },
   methodIcon: {
-    width: touchTargets.large,
-    height: touchTargets.large,
+    width: layout.isSmallDevice ? 60 : 70, // Íconos más grandes
+    height: layout.isSmallDevice ? 60 : 70,
     borderRadius: spacing.xl,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
@@ -695,37 +695,41 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contactSection: {
-    marginTop: spacing.sm,
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingBottom: spacing.lg,
+    marginTop: spacing.sm, // Reducido aún más de lg a sm
+    paddingBottom: spacing.lg, // Reducido también
   },
   contactTitle: {
-    fontSize: layout.isSmallDevice ? 14 : 16,
+    fontSize: layout.isSmallDevice ? 16 : 18, // Título un poco más grande
     color: '#333',
-    marginBottom: spacing.md,
+    marginBottom: spacing.md, // Reducido de lg a md
     fontFamily: typography.fontFamily.semibold,
+    textAlign: 'left', // Alineado a la izquierda como en la imagen
   },
   contactMethods: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: spacing.xs,
+    gap: spacing.md,
   },
   contactButton: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.lg, // Botones más altos
+    paddingHorizontal: spacing.md,
     backgroundColor: '#F8F9FA',
-    borderRadius: spacing.sm,
-    minHeight: touchTargets.large,
+    borderRadius: spacing.md, // Más redondeado
+    minHeight: layout.isSmallDevice ? 65 : 75, // Altura mínima más grande
     justifyContent: 'center',
+    elevation: 2, // Sombra sutil
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
   },
   contactText: {
-    fontSize: layout.isSmallDevice ? 10 : 12,
+    fontSize: layout.isSmallDevice ? 12 : 14, // Texto un poco más grande
     color: colors.primary[500],
-    marginTop: spacing.xs,
-    fontFamily: typography.fontFamily.regular,
+    marginTop: spacing.sm,
+    fontFamily: typography.fontFamily.semibold, // Font weight semibold
     textAlign: 'center',
   },
 });
