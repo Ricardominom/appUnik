@@ -242,6 +242,24 @@ export default function HomeScreen() {
                         <Ionicons name="search-outline" size={18} color="#8E8E93" style={styles.searchIcon} />
                         <Text style={styles.searchText}>Buscar servicios...</Text>
                     </TouchableOpacity>
+
+                    {/* Promotional Card */}
+                    <View style={styles.promotionalCard}>
+                        <View style={styles.promotionalContent}>
+                            <View style={styles.promotionalIconContainer}>
+                                <Ionicons name="sparkles" size={24} color="#8B5CF6" />
+                            </View>
+                            <View style={styles.promotionalTextContainer}>
+                                <Text style={styles.promotionalTitle}>Asistenta de seguros</Text>
+                                <Text style={styles.promotionalSubtitle}>
+                                    Encuentra la mejor opción{'\n'}en segundos
+                                </Text>
+                            </View>
+                            <TouchableOpacity style={styles.promotionalButton}>
+                                <Text style={styles.promotionalButtonText}>Empezar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
 
                 {/* Category Tabs */}
@@ -396,6 +414,78 @@ const styles = StyleSheet.create({
         color: colors.neutral[900],
         textAlign: 'center',
         lineHeight: 20,
+        letterSpacing: -0.1,
+    },
+    promotionalContainer: {
+        paddingHorizontal: 20,
+        paddingVertical: 16,
+    },
+    promotionalCard: {
+        backgroundColor: '#F8F7FF',
+        borderRadius: 20,
+        padding: 20,
+        marginTop: 16,
+        borderWidth: 1,
+        borderColor: '#E8E3FF',
+        shadowColor: '#8B5CF6',
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 12,
+        elevation: 4,
+    },
+    promotionalContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    promotionalIconContainer: {
+        width: 48,
+        height: 48,
+        borderRadius: 14,
+        backgroundColor: '#EDE7F6',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 16,
+    },
+    promotionalTextContainer: {
+        flex: 1,
+        marginRight: 16,
+    },
+    promotionalTitle: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#4C1D95',
+        marginBottom: 4,
+        letterSpacing: -0.2,
+    },
+    promotionalSubtitle: {
+        fontSize: 14,
+        color: '#6B7280',
+        lineHeight: 20,
+        fontWeight: '400',
+    },
+    promotionalButton: {
+        backgroundColor: '#8B5CF6',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 12,
+        shadowColor: '#8B5CF6',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+    promotionalButtonText: {
+        color: '#FFFFFF',
+        fontSize: 15,
+        fontWeight: '600',
+        textAlign: 'center',
         letterSpacing: -0.1,
     },
     bottomSpacing: {
