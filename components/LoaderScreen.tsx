@@ -77,7 +77,7 @@ const LoaderScreen: React.FC<LoaderScreenProps> = ({ onAnimationComplete }) => {
       logoAnimation.value = withDelay(400, withTiming(1, { duration: 800 }));
       
       // Programar fade out después de todas las animaciones
-      const totalAnimationDuration = 400 + 800 + 1200; // delay + logo + pausa
+      const totalAnimationDuration = 400 + 800 + 100; // delay + logo + pausa
       fadeTimeout = setTimeout(() => {
         Animated.timing(fadeAnim, {
           toValue: 0,
@@ -215,8 +215,8 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   logoImage: {
-    width: 280,
-    height: 84,
+    width: 350,
+    height: 105,
   },
   // Estilos para las líneas
   line: {
