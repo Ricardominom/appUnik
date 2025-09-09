@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   // Estilos para las líneas
   line: {
     position: 'absolute',
-    width: 2.1, // 10% más gruesa
+    width: 30, 
     height: screenHeight * 1.5,
     backgroundColor: '#7C3AED',
     opacity: 0.3,
