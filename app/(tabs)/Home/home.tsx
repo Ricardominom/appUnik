@@ -12,7 +12,8 @@ import {
     RecursosHumanosSection,
     MisValesSection,
     CumplimientoSection,
-    GastosMedicosMenores
+    GastosMedicosMenores,
+    SeguroDeVida
 } from '@/components/home';
 
 export default function HomeScreen() {
@@ -20,6 +21,7 @@ export default function HomeScreen() {
     const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
     const [showSubcategories, setShowSubcategories] = useState(false);
     const [showGastosMedicosMenores, setShowGastosMedicosMenores] = useState(false);
+    const [showSeguroDeVida, setShowSeguroDeVida] = useState(false);
     
     const categories = [
         { id: 0, name: 'Todo', color: colors.primary[500] },
@@ -43,6 +45,9 @@ export default function HomeScreen() {
         } else if (title === 'Gastos Médicos Menores') {
             setShowGastosMedicosMenores(true);
             setShowSubcategories(false);
+        } else if (title === 'Seguro de Vida') {
+            setShowSeguroDeVida(true);
+            setShowSubcategories(false);
         }
     };
 
@@ -55,6 +60,13 @@ export default function HomeScreen() {
     // Función para volver atrás desde Gastos Médicos Menores
     const handleBackFromGastosMedicos = () => {
         setShowGastosMedicosMenores(false);
+        setSelectedSubcategory('Seguros empresa');
+        setShowSubcategories(true);
+    };
+
+    // Función para volver atrás desde Seguro de Vida
+    const handleBackFromSeguroDeVida = () => {
+        setShowSeguroDeVida(false);
         setSelectedSubcategory('Seguros empresa');
         setShowSubcategories(true);
     };
@@ -211,6 +223,8 @@ export default function HomeScreen() {
         <>
             {showGastosMedicosMenores ? (
                 <GastosMedicosMenores onBack={handleBackFromGastosMedicos} />
+            ) : showSeguroDeVida ? (
+                <SeguroDeVida onBack={handleBackFromSeguroDeVida} />
             ) : (
                 <SafeAreaView style={styles.container}>
                     <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
