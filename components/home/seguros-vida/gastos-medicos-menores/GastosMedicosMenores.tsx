@@ -134,6 +134,21 @@ export const GastosMedicosMenores: React.FC<GastosMedicosMenoresProps> = ({ onBa
                         </View>
                         
                         <View style={styles.contactSection}>
+                            <Text style={styles.contactSectionTitle}>Contactanos</Text>
+                            <View style={styles.contactButtons}>
+                                <TouchableOpacity style={styles.contactButton}>
+                                    <Ionicons name="call" size={24} color="#FFFFFF" />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.contactButton}>
+                                    <Ionicons name="chatbubbles" size={24} color="#FFFFFF" />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.contactButton}>
+                                    <Ionicons name="location" size={24} color="#FFFFFF" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        
+                        <View style={styles.contactSection}>
                             <View style={styles.contactGrid}>
                                 <TouchableOpacity style={styles.consultaButton}>
                                     <View style={styles.consultaIcon}>
@@ -353,7 +368,7 @@ const styles = StyleSheet.create({
         paddingTop: 16,
     },
     tabContent: {
-        paddingBottom: 100,
+        paddingBottom: 120,
     },
     serviceCard: {
         backgroundColor: '#FFFFFF',
