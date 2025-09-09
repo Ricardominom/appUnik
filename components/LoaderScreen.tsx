@@ -59,7 +59,7 @@ const LoaderScreen: React.FC<LoaderScreenProps> = ({ onAnimationComplete }) => {
       }
     };
 
-    let fadeTimeout: NodeJS.Timeout;
+    let fadeTimeout: ReturnType<typeof setTimeout>;
 
     const startAnimation = () => {
       // Secuencia de líneas subiendo rápidamente con delays
