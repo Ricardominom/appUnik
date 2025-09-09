@@ -13,7 +13,8 @@ import {
     MisValesSection,
     CumplimientoSection,
     GastosMedicosMenores,
-    SeguroDeVida
+    SeguroDeVida,
+    SeguroVidaFamiliar
 } from '@/components/home';
 
 export default function HomeScreen() {
@@ -22,6 +23,7 @@ export default function HomeScreen() {
     const [showSubcategories, setShowSubcategories] = useState(false);
     const [showGastosMedicosMenores, setShowGastosMedicosMenores] = useState(false);
     const [showSeguroDeVida, setShowSeguroDeVida] = useState(false);
+    const [showSeguroVidaFamiliar, setShowSeguroVidaFamiliar] = useState(false);
     
     const categories = [
         { id: 0, name: 'Todo', color: colors.primary[500] },
@@ -46,8 +48,14 @@ export default function HomeScreen() {
             setShowGastosMedicosMenores(true);
             setShowSubcategories(false);
         } else if (title === 'Seguro de Vida') {
-            setShowSeguroDeVida(true);
-            setShowSubcategories(false);
+            // Verificar de qué subcategoría viene
+            if (selectedSubcategory === 'Seguros familiares') {
+                setShowSeguroVidaFamiliar(true);
+                setShowSubcategories(false);
+            } else {
+                setShowSeguroDeVida(true);
+                setShowSubcategories(false);
+            }
         }
     };
 
@@ -68,6 +76,13 @@ export default function HomeScreen() {
     const handleBackFromSeguroDeVida = () => {
         setShowSeguroDeVida(false);
         setSelectedSubcategory('Seguros empresa');
+        setShowSubcategories(true);
+    };
+
+    // Función para volver atrás desde Seguro de Vida Familiar
+    const handleBackFromSeguroVidaFamiliar = () => {
+        setShowSeguroVidaFamiliar(false);
+        setSelectedSubcategory('Seguros familiares');
         setShowSubcategories(true);
     };
 
@@ -225,6 +240,8 @@ export default function HomeScreen() {
                 <GastosMedicosMenores onBack={handleBackFromGastosMedicos} />
             ) : showSeguroDeVida ? (
                 <SeguroDeVida onBack={handleBackFromSeguroDeVida} />
+            ) : showSeguroVidaFamiliar ? (
+                <SeguroVidaFamiliar onBack={handleBackFromSeguroVidaFamiliar} />
             ) : (
                 <SafeAreaView style={styles.container}>
                     <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
