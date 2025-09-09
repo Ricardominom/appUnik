@@ -71,7 +71,7 @@ export default function LandingScreen() {
   }));
 
   const handleGetStarted = () => {
-    router.push('/landing');
+    router.push('/LandingPage/landing');
   };
 
   return (

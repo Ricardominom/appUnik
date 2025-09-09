@@ -280,7 +280,7 @@ export default function CreateAccountScreen() {
   };
 
   const handleBack = () => {
-    router.push('/landing');
+    router.push('/LandingPage/landing');
   };
 
   return (

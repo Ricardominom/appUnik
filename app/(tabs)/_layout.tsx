@@ -11,7 +11,7 @@ export default function TabLayout() {
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
           // Ocultar la barra de navegación en pantallas de autenticación
-          display: ['index', 'email-login', 'landing', 'create-account'].includes(route.name) 
+          display: ['index', 'Auth/email-login', 'LandingPage/landing', 'Auth/create-account'].includes(route.name) 
             ? 'none' 
             : 'flex',
           backgroundColor: 'rgba(248, 249, 250, 0.95)',
@@ -55,28 +55,28 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="email-login"
+        name="Auth/email-login"
         options={{
           title: 'Email Login',
           href: null, // Hide from tab bar
         }}
       />
       <Tabs.Screen
-        name="create-account"
+        name="Auth/create-account"
         options={{
           title: 'Create Account',
           href: null, // Hide from tab bar
         }}
       />
       <Tabs.Screen
-        name="landing"
+        name="LandingPage/landing"
         options={{
           title: 'Landing',
           href: null, // Hide from tab bar
         }}
       />
       <Tabs.Screen
-        name="home"
+        name="Home/home"
         options={{
           title: 'Inicio',
           tabBarIcon: ({ color, size, focused }) => (
@@ -89,7 +89,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="dashboard"
+        name="Activity/dashboard"
         options={{
           title: 'Actividad',
           tabBarIcon: ({ color, size, focused }) => (
@@ -102,7 +102,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="favorites"
+        name="Favorites/favorites"
         options={{
           title: 'Favoritos',
           tabBarIcon: ({ color, size, focused }) => (
@@ -115,7 +115,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="Profile/profile"
         options={{
           title: 'Perfil',
           tabBarIcon: ({ color, size, focused }) => (

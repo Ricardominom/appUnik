@@ -286,13 +286,13 @@ export default function LoginScreen() {
   const handleBiometricLogin = () => {
     setSelectedMethod('biometric');
     // Navegar a la pantalla de iniciar sesión
-    router.push('/email-login');
+    router.push('/Auth/email-login');
   };
 
   const handlePasscodeLogin = () => {
     setSelectedMethod('passcode');
     // Navegar a la pantalla de crear cuenta
-    router.push('/create-account');
+    router.push('/Auth/create-account');
   };
 
   return (

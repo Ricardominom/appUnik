@@ -142,11 +142,11 @@ export default function EmailLoginScreen() {
 
   const handleLogin = async () => {
     // Navegación directa a Home sin validaciones (temporal)
-    router.replace('/home');
+    router.replace('/Home/home');
   };
 
   const handleBack = () => {
-    router.push('/landing');
+    router.push('/LandingPage/landing');
   };
 
   return (
