@@ -5,23 +5,20 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  StatusBar,
-  TextInput,
   Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
 } from 'react-native';
 import { Image } from 'expo-image';
-import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { ArrowLeft, Eye, EyeOff, Mail, Lock } from 'lucide-react-native';
+import { ArrowLeft, Mail, Lock } from 'lucide-react-native';
 import { useAuthContext } from '@/context/AuthContext';
 import { spacing, touchTargets } from '@/constants/spacing';
 import { layout } from '@/constants/layout';
 import { colors } from '@/constants/colors';
 import { typography } from '@/constants/typography';
+import { GradientScreen } from '@/components/layouts/GradientScreen';
+import { FormInput } from '@/components/ui/FormInput';
+import { GradientButton } from '@/components/ui/GradientButton';
+import { useFormValidation } from '@/hooks/useFormValidation';
 import Animated, { 
   useSharedValue, 
   useAnimatedStyle, 
@@ -41,9 +38,10 @@ export default function EmailLoginScreen() {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  
+  const { validateEmail, validatePassword } = useFormValidation();
   
   const fadeInValue = useSharedValue(0);
   const slideUpValue = useSharedValue(50);
@@ -141,11 +139,6 @@ export default function EmailLoginScreen() {
     };
   });
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
   const handleLogin = async () => {
     // Reset errors
     setEmailError('');
@@ -154,19 +147,15 @@ export default function EmailLoginScreen() {
     // Validation
     let hasErrors = false;
 
-    if (!email.trim()) {
-      setEmailError('El email es requerido');
-      hasErrors = true;
-    } else if (!validateEmail(email)) {
-      setEmailError('Ingresa un email válido');
+    const emailValidation = validateEmail(email);
+    if (emailValidation) {
+      setEmailError(emailValidation);
       hasErrors = true;
     }
 
-    if (!password.trim()) {
-      setPasswordError('La contraseña es requerida');
-      hasErrors = true;
-    } else if (password.length < 6) {
-      setPasswordError('La contraseña debe tener al menos 6 caracteres');
+    const passwordValidation = validatePassword(password);
+    if (passwordValidation) {
+      setPasswordError(passwordValidation);
       hasErrors = true;
     }
 
@@ -188,166 +177,120 @@ export default function EmailLoginScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <LinearGradient
-        colors={[colors.primary[500], colors.accent[500], colors.primary[700]]}
-        style={styles.gradient}
-      >
-        {/* Animated decorative elements */}
-        <Animated.View style={[styles.topDecoration1, floatingStyle]}>
-          <View style={styles.decorativeShape1}>
-            <LinearGradient
-              colors={[colors.secondary[400], colors.accent[300]]}
-              style={styles.shapeGradient}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-            />
-          </View>
-        </Animated.View>
-        
-        <Animated.View style={[styles.topDecoration2, pulsingStyle]}>
-          <Animated.View style={[styles.decorativeShape2, rotatingStyle]}>
-            <LinearGradient
-              colors={[colors.primary[400], colors.secondary[500]]}
-              style={styles.shapeGradient}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-            />
-          </Animated.View>
-        </Animated.View>
-        
-        <Animated.View style={[styles.topDecoration3, floatingStyle]}>
-          <View style={styles.decorativeShape3}>
-            <LinearGradient
-              colors={[colors.accent[400], colors.primary[300]]}
-              style={styles.shapeGradient}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-            />
-          </View>
-        </Animated.View>
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity 
-            style={styles.backButton} 
-            onPress={handleBack}
-            activeOpacity={0.7}
-          >
-            <ArrowLeft size={24} color="white" strokeWidth={2} />
-          </TouchableOpacity>
-          <Image 
-            source={{ uri: 'https://raw.githubusercontent.com/Nefta11/MiPortafolioNefta/refs/heads/main/SINF.png' }}
-            style={styles.headerLogoImage}
-            contentFit="contain"
+    <GradientScreen variant="primary">
+      {/* Animated decorative elements */}
+      <Animated.View style={[styles.topDecoration1, floatingStyle]}>
+        <View style={styles.decorativeShape1}>
+          <LinearGradient
+            colors={[colors.secondary[400], colors.accent[300]]}
+            style={styles.shapeGradient}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
           />
-          <View style={styles.placeholder} />
         </View>
+      </Animated.View>
+      
+      <Animated.View style={[styles.topDecoration2, pulsingStyle]}>
+        <Animated.View style={[styles.decorativeShape2, rotatingStyle]}>
+          <LinearGradient
+            colors={[colors.primary[400], colors.secondary[500]]}
+            style={styles.shapeGradient}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+          />
+        </Animated.View>
+      </Animated.View>
+      
+      <Animated.View style={[styles.topDecoration3, floatingStyle]}>
+        <View style={styles.decorativeShape3}>
+          <LinearGradient
+            colors={[colors.accent[400], colors.primary[300]]}
+            style={styles.shapeGradient}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+          />
+        </View>
+      </Animated.View>
+      
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity 
+          style={styles.backButton} 
+          onPress={handleBack}
+          activeOpacity={0.7}
+        >
+          <ArrowLeft size={24} color="white" strokeWidth={2} />
+        </TouchableOpacity>
+        <Image 
+          source={{ uri: 'https://raw.githubusercontent.com/Nefta11/MiPortafolioNefta/refs/heads/main/SINF.png' }}
+          style={styles.headerLogoImage}
+          contentFit="contain"
+        />
+        <View style={styles.placeholder} />
+      </View>
 
-        {/* Main Content */}
-        <View style={styles.keyboardView}>
-            <Animated.View style={[styles.content, animatedStyle, inputAnimStyle]}>
-              {/* Welcome Section */}
-              <View style={styles.welcomeSection}>
-                <Text style={styles.welcomeText}>Bienvenido de vuelta</Text>
-                <Text style={styles.subtitle}>Ingresa tus credenciales para continuar</Text>
-              </View>
+      {/* Main Content */}
+      <View style={styles.keyboardView}>
+          <Animated.View style={[styles.content, animatedStyle, inputAnimStyle]}>
+            {/* Welcome Section */}
+            <View style={styles.welcomeSection}>
+              <Text style={styles.welcomeText}>Bienvenido de vuelta</Text>
+              <Text style={styles.subtitle}>Ingresa tus credenciales para continuar</Text>
+            </View>
 
-              {/* Form */}
-              <Animated.View style={[styles.form, inputAnimStyle]}>
-                {/* Email Input */}
-                <View style={styles.inputContainer}>
-                  <Text style={styles.inputLabel}>Email</Text>
-                  <View style={[styles.inputWrapper, emailError && styles.inputError]}>
-                    <Mail size={20} color="#9CA3AF" strokeWidth={2} />
-                    <TextInput
-                      style={styles.textInput}
-                      placeholder="tu@email.com"
-                      placeholderTextColor="#9CA3AF"
-                      value={email}
-                      onChangeText={(text) => {
-                        setEmail(text);
-                        if (emailError) setEmailError('');
-                      }}
-                      keyboardType="email-address"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                    />
-                  </View>
-                  {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-                </View>
+            {/* Form */}
+            <Animated.View style={[styles.form, inputAnimStyle]}>
+              <FormInput
+                label="Email"
+                icon={Mail}
+                type="email"
+                value={email}
+                onChangeText={(text) => {
+                  setEmail(text);
+                  if (emailError) setEmailError('');
+                }}
+                placeholder="tu@email.com"
+                error={emailError}
+              />
 
-                {/* Password Input */}
-                <View style={styles.inputContainer}>
-                  <Text style={styles.inputLabel}>Contraseña</Text>
-                  <View style={[styles.inputWrapper, passwordError && styles.inputError]}>
-                    <Lock size={20} color="#9CA3AF" strokeWidth={2} />
-                    <TextInput
-                      style={styles.textInput}
-                      placeholder="Tu contraseña"
-                      placeholderTextColor="#9CA3AF"
-                      value={password}
-                      onChangeText={(text) => {
-                        setPassword(text);
-                        if (passwordError) setPasswordError('');
-                      }}
-                      secureTextEntry={!showPassword}
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                    />
-                    <TouchableOpacity
-                      onPress={() => setShowPassword(!showPassword)}
-                      style={styles.eyeButton}
-                    >
-                      {showPassword ? (
-                        <EyeOff size={20} color="#9CA3AF" strokeWidth={2} />
-                      ) : (
-                        <Eye size={20} color="#9CA3AF" strokeWidth={2} />
-                      )}
-                    </TouchableOpacity>
-                  </View>
-                  {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
-                </View>
+              <FormInput
+                label="Contraseña"
+                icon={Lock}
+                type="password"
+                value={password}
+                onChangeText={(text) => {
+                  setPassword(text);
+                  if (passwordError) setPasswordError('');
+                }}
+                placeholder="Tu contraseña"
+                error={passwordError}
+              />
 
-                {/* Forgot Password */}
-                <TouchableOpacity style={styles.forgotPassword} activeOpacity={0.7}>
-                  <Text style={styles.forgotPasswordText}>¿Olvidaste tu contraseña?</Text>
-                </TouchableOpacity>
+              {/* Forgot Password */}
+              <TouchableOpacity style={styles.forgotPassword} activeOpacity={0.7}>
+                <Text style={styles.forgotPasswordText}>¿Olvidaste tu contraseña?</Text>
+              </TouchableOpacity>
 
-                {/* Login Button */}
-                <Animated.View style={[buttonAnimStyle]}>
-                  <TouchableOpacity
-                    style={[styles.loginButton, isLoading && styles.loginButtonDisabled]}
-                    onPress={handleLogin}
-                    disabled={isLoading}
-                    activeOpacity={0.8}
-                  >
-                  <LinearGradient
-                    colors={[colors.secondary[100], '#FFFFFF', colors.accent[50]]}
-                    style={styles.buttonGradient}
-                  >
-                    <Text style={styles.loginButtonText}>
-                      {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
-                    </Text>
-                  </LinearGradient>
-                  </TouchableOpacity>
-                </Animated.View>
+              {/* Login Button */}
+              <Animated.View style={[buttonAnimStyle]}>
+                <GradientButton
+                  title={isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+                  variant="white"
+                  size="large"
+                  loading={isLoading}
+                  animated={!isLoading}
+                  onPress={handleLogin}
+                  disabled={isLoading}
+                />
               </Animated.View>
             </Animated.View>
-        </View>
-
-      </LinearGradient>
-    </SafeAreaView>
+          </Animated.View>
+      </View>
+    </GradientScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gradient: {
-    flex: 1,
-  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -461,56 +404,6 @@ const styles = StyleSheet.create({
   form: {
     flex: 1,
   },
-  inputContainer: {
-    marginBottom: spacing.lg,
-  },
-  inputLabel: {
-    fontSize: layout.isSmallDevice ? 14 : 16,
-    color: '#374151',
-    fontFamily: typography.fontFamily.semibold,
-    marginBottom: spacing.sm,
-  },
-  inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: spacing.lg,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-    borderWidth: 2,
-    borderColor: colors.primary[200],
-    minHeight: touchTargets.large + 8,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-  },
-  inputError: {
-    borderColor: colors.error,
-    backgroundColor: '#FEF2F2',
-    elevation: 3,
-  },
-  textInput: {
-    flex: 1,
-    fontSize: layout.isSmallDevice ? 14 : 16,
-    color: '#374151',
-    fontFamily: typography.fontFamily.regular,
-    marginLeft: spacing.sm,
-  },
-  eyeButton: {
-    padding: spacing.xs,
-    minWidth: touchTargets.minimum,
-    minHeight: touchTargets.minimum,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorText: {
-    fontSize: layout.isSmallDevice ? 12 : 14,
-    color: colors.error,
-    marginTop: spacing.xs,
-    marginLeft: spacing.xs,
-  },
   forgotPassword: {
     alignSelf: 'center',
     marginTop: spacing.sm,
@@ -522,31 +415,5 @@ const styles = StyleSheet.create({
     fontSize: layout.isSmallDevice ? 12 : 14,
     color: colors.primary[500],
     fontFamily: typography.fontFamily.semibold,
-  },
-  loginButton: {
-    height: touchTargets.large + 8,
-    borderRadius: spacing.xl,
-    overflow: 'hidden',
-    elevation: 6,
-    shadowColor: colors.primary[500],
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    marginTop: spacing.lg,
-    marginBottom: spacing.lg,
-  },
-  loginButtonDisabled: {
-    opacity: 0.7,
-  },
-  buttonGradient: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loginButtonText: {
-    fontSize: layout.isSmallDevice ? 17 : 19,
-    fontFamily: typography.fontFamily.black,
-    color: colors.primary[500],
-    letterSpacing: 0.5,
   },
 });
