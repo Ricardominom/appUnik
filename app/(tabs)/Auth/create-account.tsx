@@ -270,7 +270,7 @@ export default function CreateAccountScreen() {
         [
           {
             text: 'OK',
-            onPress: () => router.replace('/dashboard')
+            onPress: () => router.replace('/Activity/activity')
           }
         ]
       );
