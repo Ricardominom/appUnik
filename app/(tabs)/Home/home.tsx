@@ -209,23 +209,25 @@ export default function HomeScreen() {
                         <Text style={styles.searchText}>Buscar servicios...</Text>
                     </TouchableOpacity>
 
-                    {/* Promotional Card */}
-                    <View style={styles.promotionalCard}>
-                        <View style={styles.promotionalContent}>
-                            <View style={styles.promotionalIconContainer}>
-                                <Ionicons name="sparkles" size={24} color="#8B5CF6" />
+                    {/* Promotional Card - Solo mostrar en home principal */}
+                    {!showSubcategories && (
+                        <View style={styles.promotionalCard}>
+                            <View style={styles.promotionalContent}>
+                                <View style={styles.promotionalIconContainer}>
+                                    <Ionicons name="sparkles" size={24} color="#8B5CF6" />
+                                </View>
+                                <View style={styles.promotionalTextContainer}>
+                                    <Text style={styles.promotionalTitle}>Asistenta de seguros</Text>
+                                    <Text style={styles.promotionalSubtitle}>
+                                        Encuentra la mejor opción{'\n'}en segundos
+                                    </Text>
+                                </View>
+                                <TouchableOpacity style={styles.promotionalButton}>
+                                    <Text style={styles.promotionalButtonText}>Empezar</Text>
+                                </TouchableOpacity>
                             </View>
-                            <View style={styles.promotionalTextContainer}>
-                                <Text style={styles.promotionalTitle}>Asistenta de seguros</Text>
-                                <Text style={styles.promotionalSubtitle}>
-                                    Encuentra la mejor opción{'\n'}en segundos
-                                </Text>
-                            </View>
-                            <TouchableOpacity style={styles.promotionalButton}>
-                                <Text style={styles.promotionalButtonText}>Empezar</Text>
-                            </TouchableOpacity>
                         </View>
-                    </View>
+                    )}
                 </View>
 
                 {/* Category Tabs */}
