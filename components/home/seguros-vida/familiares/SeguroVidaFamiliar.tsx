@@ -19,8 +19,8 @@ export const SeguroVidaFamiliar: React.FC<SeguroVidaFamiliarProps> = ({ onBack }
 
     const familyMembers = [
         { id: 0, name: 'Mamá', active: true },
-        { id: 1, name: 'Papá', active: false },
-        { id: 2, name: 'Hijo 1', active: false }
+        { id: 1, name: 'Papá', active: true },
+        { id: 2, name: 'Hijo 1', active: true }
     ];
 
     const renderTabContent = () => {
