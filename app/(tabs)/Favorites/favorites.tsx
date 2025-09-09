@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
-import AnimatedScreen from '@/components/AnimatedScreen';
 
 export default function FavoritesScreen() {
     const [favorites, setFavorites] = useState([
@@ -17,7 +16,6 @@ export default function FavoritesScreen() {
     };
 
     return (
-        <AnimatedScreen>
             <SafeAreaView style={styles.container}>
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 {/* Header */}
@@ -81,7 +79,6 @@ export default function FavoritesScreen() {
                 <View style={styles.bottomSpacing} />
             </ScrollView>
         </SafeAreaView>
-        </AnimatedScreen>
     );
 }
 

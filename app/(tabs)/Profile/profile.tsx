@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
-import AnimatedScreen from '@/components/AnimatedScreen';
 
 export default function ProfileScreen() {
     const profileStats = [
@@ -31,7 +30,6 @@ export default function ProfileScreen() {
     ];
 
     return (
-        <AnimatedScreen>
             <SafeAreaView style={styles.container}>
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 {/* Header */}
@@ -110,7 +108,6 @@ export default function ProfileScreen() {
                 <View style={styles.bottomSpacing} />
             </ScrollView>
         </SafeAreaView>
-        </AnimatedScreen>
     );
 }
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
-import AnimatedScreen from '@/components/AnimatedScreen';
 
 export default function HomeScreen() {
     const [activeCategory, setActiveCategory] = useState(0);
@@ -83,41 +82,61 @@ export default function HomeScreen() {
     );
 
     const renderServiceGrid = (title: string, services: any[]) => {
-        // Colores de fondo muy suaves para las cards usando colors.ts
-        const cardColors = [
-            colors.primary[50], // Azul muy claro
-            colors.neutral[50], // Gris muy claro
-            colors.secondary[50], // Verde muy claro
-            colors.accent[50], // Azul claro
-            colors.primary[100], // Lavanda muy claro
-            colors.accent[50], // Azul claro
-            colors.secondary[100], // Verde claro
-            colors.primary[50], // Azul muy claro
-        ];
-        
-        // Colores de fondo muy suaves para los iconos usando colors.ts
-        const iconBgColors = [
-            colors.primary[100], // Azul pastel
-            colors.neutral[100], // Gris pastel
-            colors.secondary[100], // Verde pastel
-            colors.accent[100], // Azul pastel
-            colors.primary[200], // Lavanda pastel
-            colors.accent[100], // Azul pastel
-            colors.secondary[200], // Verde pastel
-            colors.primary[100], // Azul pastel
-        ];
-        
-        // Colores muy suaves para los iconos usando colors.ts
-        const iconColors = [
-            colors.primary[400], // Azul suave
-            colors.neutral[400], // Gris suave
-            colors.secondary[400], // Verde suave
-            colors.accent[400], // Azul suave
-            colors.primary[300], // Azul claro
-            colors.accent[400], // Azul suave
-            colors.secondary[400], // Verde suave
-            colors.primary[400], // Azul suave
-        ];
+        // Asignar colores únicos por sección
+        const getSectionColors = (sectionTitle: string) => {
+            switch (sectionTitle) {
+                case 'Estilo de vida':
+                    return {
+                        cardColor: '#E8F5E8', // Verde muy claro
+                        iconBgColor: '#C8E6C9', // Verde claro
+                        iconColor: '#388E3C', // Verde
+                    };
+                case 'Seguros y Vida':
+                    return {
+                        cardColor: '#E3F2FD', // Azul muy claro
+                        iconBgColor: '#BBDEFB', // Azul claro
+                        iconColor: '#1976D2', // Azul
+                    };
+                case 'Mis Finanzas':
+                    return {
+                        cardColor: '#FFF3E0', // Naranja muy claro
+                        iconBgColor: '#FFE0B2', // Naranja claro
+                        iconColor: '#F57C00', // Naranja
+                    };
+                case 'Experiencias':
+                    return {
+                        cardColor: '#F3E5F5', // Morado muy claro
+                        iconBgColor: '#E1BEE7', // Morado claro
+                        iconColor: '#7B1FA2', // Morado
+                    };
+                case 'Recursos Humanos':
+                    return {
+                        cardColor: '#FCE4EC', // Rosa muy claro
+                        iconBgColor: '#F8BBD9', // Rosa claro
+                        iconColor: '#C2185B', // Rosa
+                    };
+                case 'Mis vales':
+                    return {
+                        cardColor: '#FFF8E1', // Amarillo muy claro
+                        iconBgColor: '#FFF9C4', // Amarillo claro
+                        iconColor: '#F9A825', // Amarillo
+                    };
+                case 'Cumplimiento':
+                    return {
+                        cardColor: '#E0F2F1', // Turquesa muy claro
+                        iconBgColor: '#B2DFDB', // Turquesa claro
+                        iconColor: '#00796B', // Turquesa
+                    };
+                default:
+                    return {
+                        cardColor: '#FFEBEE', // Rojo muy claro
+                        iconBgColor: '#FFCDD2', // Rojo claro
+                        iconColor: '#D32F2F', // Rojo
+                    };
+            }
+        };
+
+        const sectionColors = getSectionColors(title);
 
         return (
             <View style={styles.section}>
@@ -128,17 +147,17 @@ export default function HomeScreen() {
                             key={service.id} 
                             style={[
                                 styles.serviceCard,
-                                { backgroundColor: cardColors[index % cardColors.length] }
+                                { backgroundColor: sectionColors.cardColor }
                             ]}
                         >
                             <View style={[
                                 styles.serviceIconContainer,
-                                { backgroundColor: iconBgColors[index % iconBgColors.length] }
+                                { backgroundColor: sectionColors.iconBgColor }
                             ]}>
                                 <Ionicons 
                                     name={service.icon as any} 
                                     size={24} 
-                                    color={iconColors[index % iconColors.length]} 
+                                    color={sectionColors.iconColor} 
                                 />
                             </View>
                             <Text style={styles.serviceTitle}>{service.title}</Text>
@@ -211,7 +230,6 @@ export default function HomeScreen() {
     };
 
     return (
-        <AnimatedScreen>
             <SafeAreaView style={styles.container}>
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 {/* Header */}
@@ -235,7 +253,6 @@ export default function HomeScreen() {
                 <View style={styles.bottomSpacing} />
             </ScrollView>
         </SafeAreaView>
-        </AnimatedScreen>
     );
 }
 

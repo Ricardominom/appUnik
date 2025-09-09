@@ -11,7 +11,6 @@ import { useRouter } from 'expo-router';
 import { useAuthContext } from '@/context/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
-import AnimatedScreen from '@/components/AnimatedScreen';
 
 export default function DashboardScreen() {
   const router = useRouter();
@@ -36,7 +35,6 @@ export default function DashboardScreen() {
   ];
 
   return (
-    <AnimatedScreen>
       <SafeAreaView style={styles.container}>
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Header */}
@@ -120,7 +118,6 @@ export default function DashboardScreen() {
         <View style={styles.bottomSpacing} />
       </ScrollView>
     </SafeAreaView>
-    </AnimatedScreen>
   );
 }
 
