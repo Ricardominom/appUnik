@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeScreen() {
+    const [activeCategory, setActiveCategory] = useState(0);
+    
     const categories = [
-        { id: 1, name: 'Life Style', color: '#90EE90', active: true },
-        { id: 2, name: 'Seguros y Asistencias', color: '#E6E6FA', active: false },
-        { id: 3, name: 'Finanzas', color: '#FFE4B5', active: false },
-        { id: 4, name: 'Experiencias', color: '#98FB98', active: false },
+        { id: 0, name: 'Todo', color: '#6C5CE7' },
+        { id: 1, name: 'Life Style', color: '#FF6B6B' },
+        { id: 2, name: 'Seguros y Asistencias', color: '#4ECDC4' },
+        { id: 3, name: 'Finanzas', color: '#45B7D1' },
+        { id: 4, name: 'Experiencias', color: '#96CEB4' },
+        { id: 5, name: 'Mi RH', color: '#FFB6C1' },
+        { id: 6, name: 'Mis vales', color: '#FFDAB9' },
+        { id: 7, name: 'Cumplimiento', color: '#ADD8E6' },
     ];
 
     const segurosVida = [
@@ -31,25 +37,46 @@ export default function HomeScreen() {
         { id: 1, title: 'Gyms y Studios', icon: 'fitness-outline' },
     ];
 
+    // Nuevas secciones de la segunda imagen
+    const recursosHumanos = [
+        { id: 1, title: 'Mi portal de Recursos Humanos', icon: 'trophy-outline' },
+    ];
+
+    const misVales = [
+        { id: 1, title: 'Vales de despensa', icon: 'cash-outline' },
+        { id: 2, title: 'TAG Gasolina', icon: 'car-outline' },
+        { id: 3, title: 'Vale Gasolina', icon: 'car-sport-outline' },
+        { id: 4, title: 'Vale Restaurante', icon: 'restaurant-outline' },
+        { id: 5, title: 'Ver todos', icon: 'grid-outline' },
+    ];
+
+    const cumplimiento = [
+        { id: 1, title: 'NOM 035', icon: 'checkmark-circle-outline' },
+        { id: 2, title: 'NOM 037', icon: 'shield-checkmark-outline' },
+    ];
+
     const renderCategoryTabs = () => (
         <View style={styles.categoryTabs}>
-            {categories.map((category) => (
-                <TouchableOpacity
-                    key={category.id}
-                    style={[
-                        styles.categoryTab,
-                        { backgroundColor: category.color },
-                        category.active && styles.activeTab
-                    ]}
-                >
-                    <Text style={[
-                        styles.categoryText,
-                        category.active && styles.activeCategoryText
-                    ]}>
-                        {category.name}
-                    </Text>
-                </TouchableOpacity>
-            ))}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {categories.map((category) => (
+                    <TouchableOpacity
+                        key={category.id}
+                        style={[
+                            styles.categoryTab,
+                            { backgroundColor: category.color },
+                            activeCategory === category.id && styles.activeTab
+                        ]}
+                        onPress={() => setActiveCategory(category.id)}
+                    >
+                        <Text style={[
+                            styles.categoryText,
+                            activeCategory === category.id && styles.activeCategoryText
+                        ]}>
+                            {category.name}
+                        </Text>
+                    </TouchableOpacity>
+                ))}
+            </ScrollView>
         </View>
     );
 
@@ -69,6 +96,67 @@ export default function HomeScreen() {
         </View>
     );
 
+    const renderCategoryContent = () => {
+        switch (activeCategory) {
+            case 0: // Todo
+                return (
+                    <>
+                        {renderServiceGrid('Estilo de vida', estiloVida)}
+                        {renderServiceGrid('Seguros y Vida', segurosVida)}
+                        {renderServiceGrid('Mis Finanzas', misFinanzas)}
+                        {renderServiceGrid('Experiencias', experiencias)}
+                        {renderServiceGrid('Recursos Humanos', recursosHumanos)}
+                        {renderServiceGrid('Mis vales', misVales)}
+                        {renderServiceGrid('Cumplimiento', cumplimiento)}
+                    </>
+                );
+            case 1: // Life Style
+                return (
+                    <>
+                        {renderServiceGrid('Estilo de vida', estiloVida)}
+                    </>
+                );
+            case 2: // Seguros y Asistencias
+                return (
+                    <>
+                        {renderServiceGrid('Seguros y Vida', segurosVida)}
+                    </>
+                );
+            case 3: // Finanzas
+                return (
+                    <>
+                        {renderServiceGrid('Mis Finanzas', misFinanzas)}
+                    </>
+                );
+            case 4: // Experiencias
+                return (
+                    <>
+                        {renderServiceGrid('Experiencias', experiencias)}
+                    </>
+                );
+            case 5: // Mi RH
+                return (
+                    <>
+                        {renderServiceGrid('Recursos Humanos', recursosHumanos)}
+                    </>
+                );
+            case 6: // Mis vales
+                return (
+                    <>
+                        {renderServiceGrid('Mis vales', misVales)}
+                    </>
+                );
+            case 7: // Cumplimiento
+                return (
+                    <>
+                        {renderServiceGrid('Cumplimiento', cumplimiento)}
+                    </>
+                );
+            default:
+                return null;
+        }
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             {/* Header */}
@@ -84,17 +172,8 @@ export default function HomeScreen() {
                 {/* Category Tabs */}
                 {renderCategoryTabs()}
 
-                {/* Seguros y Vida */}
-                {renderServiceGrid('Seguros y Vida', segurosVida)}
-
-                {/* Mis Finanzas */}
-                {renderServiceGrid('Mis Finanzas', misFinanzas)}
-
-                {/* Experiencias */}
-                {renderServiceGrid('Experiencias', experiencias)}
-
-                {/* Estilo de vida */}
-                {renderServiceGrid('Estilo de vida', estiloVida)}
+                {/* Dynamic Content based on active category */}
+                {renderCategoryContent()}
 
                 <View style={styles.bottomSpacing} />
             </ScrollView>
@@ -140,16 +219,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     categoryTabs: {
-        flexDirection: 'row',
         marginVertical: 20,
-        gap: 10,
+        paddingHorizontal: 20,
     },
     categoryTab: {
-        paddingHorizontal: 15,
-        paddingVertical: 8,
-        borderRadius: 20,
-        minWidth: 80,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 25,
+        minWidth: 120,
         alignItems: 'center',
+        marginRight: 15,
     },
     activeTab: {
         shadowColor: '#000',
