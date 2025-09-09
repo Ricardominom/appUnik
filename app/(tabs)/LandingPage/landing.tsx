@@ -33,7 +33,8 @@ export default function LoginScreen() {
   const [selectedMethod, setSelectedMethod] = useState<'biometric' | 'passcode' | null>(null);
   
   const fadeInValue = useSharedValue(0);
-  const slideUpValue = useSharedValue(50);
+  const slideUpValue = useSharedValue(100); // Empezar más abajo para mayor impacto
+  const contentSlideUp = useSharedValue(150); // Animación separada para el contenido principal
   const floatingAnimation = useSharedValue(0);
   const rotateAnimation = useSharedValue(0);
   const pulseAnimation = useSharedValue(1);
@@ -46,8 +47,20 @@ export default function LoginScreen() {
   const spiralAnimation = useSharedValue(0);
 
   useEffect(() => {
-    fadeInValue.value = withTiming(1, { duration: 800 });
-    slideUpValue.value = withSpring(0, { damping: 12 });
+    // Animación de entrada más dramática desde abajo
+    fadeInValue.value = withTiming(1, { duration: 1200 });
+    slideUpValue.value = withSpring(0, { 
+      damping: 15, 
+      stiffness: 80,
+      mass: 1.2
+    });
+    
+    // Animación del contenido principal con delay para efecto escalonado
+    contentSlideUp.value = withSpring(0, { 
+      damping: 18,
+      stiffness: 90,
+      mass: 1.5
+    });
     
     // Floating animation
     floatingAnimation.value = withRepeat(
@@ -131,6 +144,17 @@ export default function LoginScreen() {
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: fadeInValue.value,
     transform: [{ translateY: slideUpValue.value }],
+  }));
+
+  // Estilo de animación específico para el contenido principal que sube desde abajo
+  const contentAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: contentSlideUp.value }],
+    opacity: interpolate(
+      contentSlideUp.value,
+      [150, 0],
+      [0, 1],
+      Extrapolate.CLAMP
+    ),
   }));
   
   const floatingStyle = useAnimatedStyle(() => {
@@ -393,65 +417,67 @@ export default function LoginScreen() {
 
         {/* Main Content */}
         <Animated.View style={[styles.content, animatedStyle]}>
-          {/* Welcome Section */}
-          <View style={styles.welcomeSection}>
-            <Text style={styles.welcomeText}>Accede a tu cuenta</Text>
-            <Text style={styles.userName}>UNIK</Text>
-          </View>
-
-          {/* Login Methods */}
-          <Animated.View style={[styles.loginMethods, cardScaleStyle]}>
-            <TouchableOpacity
-              style={[
-                styles.methodButton,
-                selectedMethod === 'biometric' && styles.selectedMethod
-              ]}
-              onPress={handleBiometricLogin}
-              activeOpacity={0.8}
-            >
-              <View style={styles.methodIcon}>
-                <LogIn size={38} color={colors.primary[500]} strokeWidth={3} />
-              </View>
-              <Text style={styles.methodLabelLarge}>Iniciar sesión</Text>
-              <Text style={styles.methodNameSmall}>Ya tengo cuenta</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.methodButton,
-                selectedMethod === 'passcode' && styles.selectedMethod
-              ]}
-              onPress={handlePasscodeLogin}
-              activeOpacity={0.8}
-            >
-              <View style={styles.methodIcon}>
-                <UserPlus size={38} color={colors.secondary[500]} strokeWidth={3} />
-              </View>
-              <Text style={styles.methodLabelLarge}>Crear cuenta</Text>
-              <Text style={styles.methodNameSmall}>Soy nuevo usuario</Text>
-            </TouchableOpacity>
-          </Animated.View>
-
-          {/* Contact Section */}
-          <View style={styles.contactSection}>
-            <Text style={styles.contactTitle}>Contáctanos</Text>
-            <View style={styles.contactMethods}>
-              <TouchableOpacity style={styles.contactButton} activeOpacity={0.7}>
-                <Phone size={20} color={colors.primary[500]} strokeWidth={2} />
-                <Text style={styles.contactText}>Llamar</Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity style={styles.contactButton} activeOpacity={0.7}>
-                <MapPin size={20} color={colors.primary[500]} strokeWidth={2} />
-                <Text style={styles.contactText}>Ubicación</Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity style={styles.contactButton} activeOpacity={0.7}>
-                <HelpCircle size={20} color={colors.primary[500]} strokeWidth={2} />
-                <Text style={styles.contactText}>Ayuda</Text>
-              </TouchableOpacity>
+          <Animated.View style={contentAnimatedStyle}>
+            {/* Welcome Section */}
+            <View style={styles.welcomeSection}>
+              <Text style={styles.welcomeText}>Accede a tu cuenta</Text>
+              <Text style={styles.userName}>UNIK</Text>
             </View>
-          </View>
+
+            {/* Login Methods */}
+            <Animated.View style={[styles.loginMethods, cardScaleStyle]}>
+              <TouchableOpacity
+                style={[
+                  styles.methodButton,
+                  selectedMethod === 'biometric' && styles.selectedMethod
+                ]}
+                onPress={handleBiometricLogin}
+                activeOpacity={0.8}
+              >
+                <View style={styles.methodIcon}>
+                  <LogIn size={38} color={colors.primary[500]} strokeWidth={3} />
+                </View>
+                <Text style={styles.methodLabelLarge}>Iniciar sesión</Text>
+                <Text style={styles.methodNameSmall}>Ya tengo cuenta</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  styles.methodButton,
+                  selectedMethod === 'passcode' && styles.selectedMethod
+                ]}
+                onPress={handlePasscodeLogin}
+                activeOpacity={0.8}
+              >
+                <View style={styles.methodIcon}>
+                  <UserPlus size={38} color={colors.secondary[500]} strokeWidth={3} />
+                </View>
+                <Text style={styles.methodLabelLarge}>Crear cuenta</Text>
+                <Text style={styles.methodNameSmall}>Soy nuevo usuario</Text>
+              </TouchableOpacity>
+            </Animated.View>
+
+            {/* Contact Section */}
+            <View style={styles.contactSection}>
+              <Text style={styles.contactTitle}>Contáctanos</Text>
+              <View style={styles.contactMethods}>
+                <TouchableOpacity style={styles.contactButton} activeOpacity={0.7}>
+                  <Phone size={20} color={colors.primary[500]} strokeWidth={2} />
+                  <Text style={styles.contactText}>Llamar</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity style={styles.contactButton} activeOpacity={0.7}>
+                  <MapPin size={20} color={colors.primary[500]} strokeWidth={2} />
+                  <Text style={styles.contactText}>Ubicación</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity style={styles.contactButton} activeOpacity={0.7}>
+                  <HelpCircle size={20} color={colors.primary[500]} strokeWidth={2} />
+                  <Text style={styles.contactText}>Ayuda</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Animated.View>
         </Animated.View>
 
       </LinearGradient>
