@@ -80,21 +80,72 @@ export default function HomeScreen() {
         </View>
     );
 
-    const renderServiceGrid = (title: string, services: any[]) => (
-        <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{title}</Text>
-            <View style={styles.serviceGrid}>
-                {services.map((service) => (
-                    <TouchableOpacity key={service.id} style={styles.serviceCard}>
-                        <View style={styles.serviceIconContainer}>
-                            <Ionicons name={service.icon as any} size={32} color="#6366F1" />
-                        </View>
-                        <Text style={styles.serviceTitle}>{service.title}</Text>
-                    </TouchableOpacity>
-                ))}
+    const renderServiceGrid = (title: string, services: any[]) => {
+        // Colores de fondo muy suaves para las cards como en la imagen
+        const cardColors = [
+            '#F0F8FF', // Azul muy claro (como Scan)
+            '#FAFAFA', // Gris muy claro (como Edit)
+            '#F0FFF0', // Verde muy claro (como Convert)
+            '#FFFEF0', // Amarillo muy claro (como Ask AI)
+            '#F8F8FF', // Lavanda muy claro
+            '#FFF8F0', // Crema muy claro
+            '#FFF0F5', // Rosa muy claro
+            '#F0FFF8', // Menta muy claro
+        ];
+        
+        // Colores de fondo muy suaves para los iconos
+        const iconBgColors = [
+            '#E8F4FD', // Azul pastel
+            '#F5F5F5', // Gris pastel
+            '#E8F5E8', // Verde pastel
+            '#FFF9E6', // Amarillo pastel
+            '#F0F0FF', // Lavanda pastel
+            '#FFF5E6', // Crema pastel
+            '#FFE4E1', // Rosa pastel
+            '#E0FFF0', // Menta pastel
+        ];
+        
+        // Colores muy suaves para los iconos
+        const iconColors = [
+            '#90A4AE', // Gris azulado suave
+            '#9E9E9E', // Gris suave
+            '#81C784', // Verde suave
+            '#FFB74D', // Naranja suave
+            '#B39DDB', // Púrpura suave
+            '#FFAB91', // Naranja claro
+            '#F48FB1', // Rosa suave
+            '#A5D6A7', // Verde claro
+        ];
+
+        return (
+            <View style={styles.section}>
+                <Text style={styles.sectionTitle}>{title}</Text>
+                <View style={styles.serviceGrid}>
+                    {services.map((service, index) => (
+                        <TouchableOpacity 
+                            key={service.id} 
+                            style={[
+                                styles.serviceCard,
+                                { backgroundColor: cardColors[index % cardColors.length] }
+                            ]}
+                        >
+                            <View style={[
+                                styles.serviceIconContainer,
+                                { backgroundColor: iconBgColors[index % iconBgColors.length] }
+                            ]}>
+                                <Ionicons 
+                                    name={service.icon as any} 
+                                    size={24} 
+                                    color={iconColors[index % iconColors.length]} 
+                                />
+                            </View>
+                            <Text style={styles.serviceTitle}>{service.title}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
             </View>
-        </View>
-    );
+        );
+    };
 
     const renderCategoryContent = () => {
         switch (activeCategory) {
@@ -266,25 +317,23 @@ const styles = StyleSheet.create({
     },
     serviceCard: {
         width: '48%',
-        backgroundColor: 'white',
-        borderRadius: 16,
+        borderRadius: 20,
         padding: 20,
         marginBottom: 15,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 4,
         },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 3,
+        shadowOpacity: 0.15,
+        shadowRadius: 12,
+        elevation: 5,
     },
     serviceIconContainer: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        backgroundColor: '#f0f0ff',
+        width: 50,
+        height: 50,
+        borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 12,
