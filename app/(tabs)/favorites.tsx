@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '@/constants/colors';
 
 export default function FavoritesScreen() {
     const [favorites, setFavorites] = useState([
-        { id: 1, title: 'Seguro de Auto', category: 'Seguros', icon: 'car-outline', color: '#007AFF' },
-        { id: 2, title: 'Gimnasios', category: 'Estilo de vida', icon: 'fitness-outline', color: '#34C759' },
-        { id: 3, title: 'Préstamos', category: 'Finanzas', icon: 'cash-outline', color: '#FF9500' },
-        { id: 4, title: 'Vale Gasolina', category: 'Mis vales', icon: 'car-sport-outline', color: '#FF3B30' },
+        { id: 1, title: 'Seguro de Auto', category: 'Seguros', icon: 'car-outline', color: colors.accent[500] },
+        { id: 2, title: 'Gimnasios', category: 'Estilo de vida', icon: 'fitness-outline', color: colors.secondary[500] },
+        { id: 3, title: 'Préstamos', category: 'Finanzas', icon: 'cash-outline', color: colors.warning },
+        { id: 4, title: 'Vale Gasolina', category: 'Mis vales', icon: 'car-sport-outline', color: colors.error },
     ]);
 
     const removeFavorite = (id: number) => {
@@ -40,7 +41,7 @@ export default function FavoritesScreen() {
                                     style={styles.favoriteAction}
                                     onPress={() => removeFavorite(item.id)}
                                 >
-                                    <Ionicons name="heart" size={22} color="#FF3B30" />
+                                    <Ionicons name="heart" size={22} color={colors.error} />
                                 </TouchableOpacity>
                             </View>
                         ))}
@@ -48,7 +49,7 @@ export default function FavoritesScreen() {
                 ) : (
                     <View style={styles.emptyState}>
                         <View style={styles.emptyIconContainer}>
-                            <Ionicons name="heart-outline" size={60} color="#C7C7CC" />
+                            <Ionicons name="heart-outline" size={60} color={colors.neutral[300]} />
                         </View>
                         <Text style={styles.emptyTitle}>No tienes favoritos</Text>
                         <Text style={styles.emptySubtitle}>

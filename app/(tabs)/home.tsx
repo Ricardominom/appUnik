@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '@/constants/colors';
 
 export default function HomeScreen() {
     const [activeCategory, setActiveCategory] = useState(0);
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
     },
     subGreeting: {
         fontSize: 19.3,
-        color: '#8E8E93',
+        color: colors.neutral[400],
         marginTop: 2,
         fontWeight: '400',
     },
@@ -283,7 +284,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     searchText: {
-        color: '#8E8E93',
+        color: colors.neutral[400],
         fontSize: 16,
         fontWeight: '400',
     },

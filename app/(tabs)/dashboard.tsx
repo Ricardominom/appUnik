@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useAuthContext } from '@/context/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '@/constants/colors';
 
 export default function DashboardScreen() {
   const router = useRouter();
@@ -21,16 +22,16 @@ export default function DashboardScreen() {
   };
 
   const menuItems = [
-    { icon: 'shield-checkmark-outline', title: 'Mis Pólizas', subtitle: 'Ver y gestionar seguros', color: '#34C759' },
-    { icon: 'document-text-outline', title: 'Reclamos', subtitle: 'Historial y nuevos reclamos', color: '#FF9500' },
-    { icon: 'call-outline', title: 'Contacto', subtitle: 'Soporte y asistencia', color: '#007AFF' },
-    { icon: 'settings-outline', title: 'Configuración', subtitle: 'Ajustes de cuenta', color: '#8E8E93' },
+    { icon: 'shield-checkmark-outline', title: 'Mis Pólizas', subtitle: 'Ver y gestionar seguros', color: colors.secondary[500] },
+    { icon: 'document-text-outline', title: 'Reclamos', subtitle: 'Historial y nuevos reclamos', color: colors.warning },
+    { icon: 'call-outline', title: 'Contacto', subtitle: 'Soporte y asistencia', color: colors.accent[500] },
+    { icon: 'settings-outline', title: 'Configuración', subtitle: 'Ajustes de cuenta', color: colors.neutral[400] },
   ];
 
   const statsData = [
-    { title: 'Pólizas Activas', value: '3', icon: 'shield-outline', color: '#007AFF' },
-    { title: 'Reclamos', value: '1', icon: 'document-outline', color: '#FF9500' },
-    { title: 'Ahorros', value: '$2.5K', icon: 'card-outline', color: '#34C759' },
+    { title: 'Pólizas Activas', value: '3', icon: 'shield-outline', color: colors.accent[500] },
+    { title: 'Reclamos', value: '1', icon: 'document-outline', color: colors.warning },
+    { title: 'Ahorros', value: '$2.5K', icon: 'card-outline', color: colors.secondary[500] },
   ];
 
   return (
@@ -61,7 +62,7 @@ export default function DashboardScreen() {
           
           <View style={styles.activityCard}>
             <View style={styles.activityIcon}>
-              <Ionicons name="checkmark-circle" size={20} color="#34C759" />
+              <Ionicons name="checkmark-circle" size={20} color={colors.success} />
             </View>
             <View style={styles.activityContent}>
               <Text style={styles.activityTitle}>Pago procesado</Text>
@@ -72,7 +73,7 @@ export default function DashboardScreen() {
 
           <View style={styles.activityCard}>
             <View style={styles.activityIcon}>
-              <Ionicons name="document-text" size={20} color="#FF9500" />
+              <Ionicons name="document-text" size={20} color={colors.warning} />
             </View>
             <View style={styles.activityContent}>
               <Text style={styles.activityTitle}>Nuevo reclamo</Text>
@@ -83,7 +84,7 @@ export default function DashboardScreen() {
 
           <View style={styles.activityCard}>
             <View style={styles.activityIcon}>
-              <Ionicons name="shield-checkmark" size={20} color="#007AFF" />
+              <Ionicons name="shield-checkmark" size={20} color={colors.accent[500]} />
             </View>
             <View style={styles.activityContent}>
               <Text style={styles.activityTitle}>Póliza renovada</Text>
@@ -109,7 +110,7 @@ export default function DashboardScreen() {
                 <Text style={styles.menuTitle}>{item.title}</Text>
                 <Text style={styles.menuSubtitle}>{item.subtitle}</Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#C7C7CC" />
+              <Ionicons name="chevron-forward" size={20} color={colors.neutral[300]} />
             </TouchableOpacity>
           ))}
         </View>

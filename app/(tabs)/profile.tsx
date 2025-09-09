@@ -1,29 +1,30 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '@/constants/colors';
 
 export default function ProfileScreen() {
     const profileStats = [
-        { title: 'Pólizas', value: '3', icon: 'shield-outline', color: '#007AFF' },
-        { title: 'Años', value: '2', icon: 'time-outline', color: '#34C759' },
-        { title: 'Ahorrado', value: '$2.5K', icon: 'trending-up-outline', color: '#FF9500' },
+        { title: 'Pólizas', value: '3', icon: 'shield-outline', color: colors.accent[500] },
+        { title: 'Años', value: '2', icon: 'time-outline', color: colors.secondary[500] },
+        { title: 'Ahorrado', value: '$2.5K', icon: 'trending-up-outline', color: colors.warning },
     ];
 
     const menuSections = [
         {
             title: 'Mi cuenta',
             items: [
-                { id: 1, title: 'Información Personal', icon: 'person-outline', color: '#007AFF' },
-                { id: 2, title: 'Mis Pólizas', icon: 'document-text-outline', color: '#34C759' },
-                { id: 3, title: 'Configuración', icon: 'settings-outline', color: '#8E8E93' },
+                { id: 1, title: 'Información Personal', icon: 'person-outline', color: colors.accent[500] },
+                { id: 2, title: 'Mis Pólizas', icon: 'document-text-outline', color: colors.secondary[500] },
+                { id: 3, title: 'Configuración', icon: 'settings-outline', color: colors.neutral[400] },
             ]
         },
         {
             title: 'Soporte',
             items: [
-                { id: 4, title: 'Ayuda y FAQ', icon: 'help-circle-outline', color: '#FF9500' },
-                { id: 5, title: 'Contactar Soporte', icon: 'chatbubble-outline', color: '#007AFF' },
-                { id: 6, title: 'Términos y Condiciones', icon: 'document-outline', color: '#8E8E93' },
+                { id: 4, title: 'Ayuda y FAQ', icon: 'help-circle-outline', color: colors.warning },
+                { id: 5, title: 'Contactar Soporte', icon: 'chatbubble-outline', color: colors.accent[500] },
+                { id: 6, title: 'Términos y Condiciones', icon: 'document-outline', color: colors.neutral[400] },
             ]
         }
     ];
@@ -89,7 +90,7 @@ export default function ProfileScreen() {
                                             {item.title}
                                         </Text>
                                     </View>
-                                    <Ionicons name="chevron-forward" size={18} color="#C7C7CC" />
+                                    <Ionicons name="chevron-forward" size={18} color={colors.neutral[300]} />
                                 </TouchableOpacity>
                             ))}
                         </View>
@@ -99,7 +100,7 @@ export default function ProfileScreen() {
                 {/* Logout Button */}
                 <View style={styles.section}>
                     <TouchableOpacity style={styles.logoutButton}>
-                        <Ionicons name="log-out-outline" size={20} color="#FF3B30" />
+                        <Ionicons name="log-out-outline" size={20} color={colors.error} />
                         <Text style={styles.logoutText}>Cerrar Sesión</Text>
                     </TouchableOpacity>
                 </View>
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         borderRadius: 40,
-        backgroundColor: '#007AFF',
+        backgroundColor: colors.accent[500],
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 16,
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
     editButtonText: {
         fontSize: 14,
         fontWeight: '500',
-        color: '#007AFF',
+        color: colors.accent[500],
     },
     statsContainer: {
         flexDirection: 'row',
@@ -296,7 +297,7 @@ const styles = StyleSheet.create({
     },
     logoutText: {
         fontSize: 16,
-        color: '#FF3B30',
+        color: colors.error,
         fontWeight: '500',
         marginLeft: 8,
     },
