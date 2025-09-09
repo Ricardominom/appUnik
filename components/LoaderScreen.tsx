@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Animated, Dimensions, Image } from 'react-native';
 import Reanimated, {
   useSharedValue,
@@ -11,13 +11,13 @@ import Reanimated, {
   runOnJS
 } from 'react-native-reanimated';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-
 interface LoaderScreenProps {
   onAnimationComplete?: () => void;
 }
 
 const LoaderScreen: React.FC<LoaderScreenProps> = ({ onAnimationComplete }) => {
+  const [dimensions, setDimensions] = useState(() => Dimensions.get('window'));
+  const [isReady, setIsReady] = useState(false);
   const fadeAnim = useRef(new Animated.Value(1)).current;
   
   // Animaciones para las líneas que suben
@@ -35,6 +35,32 @@ const LoaderScreen: React.FC<LoaderScreenProps> = ({ onAnimationComplete }) => {
   const logoOpacity = useSharedValue(0);
 
   useEffect(() => {
+    const subscription = Dimensions.addEventListener('change', ({ window }) => {
+      setDimensions(window);
+    });
+
+    // Pequeño delay para asegurar que el componente esté completamente montado
+    const timeoutId = setTimeout(() => {
+      setIsReady(true);
+    }, 100);
+
+    return () => {
+      subscription?.remove();
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isReady) return;
+
+    const animationCompleteCallback = () => {
+      if (onAnimationComplete) {
+        onAnimationComplete();
+      }
+    };
+
+    let fadeTimeout: NodeJS.Timeout;
+
     const startAnimation = () => {
       // Secuencia de líneas subiendo rápidamente con delays
       line1Animation.value = withDelay(0, withTiming(1, { duration: 600 }));
@@ -50,30 +76,36 @@ const LoaderScreen: React.FC<LoaderScreenProps> = ({ onAnimationComplete }) => {
       logoOpacity.value = withDelay(400, withTiming(1, { duration: 300 }));
       logoAnimation.value = withDelay(400, withTiming(1, { duration: 800 }));
       
-      // Después de un tiempo, fade out completo
-      const totalDuration = 2500;
-      setTimeout(() => {
+      // Programar fade out después de todas las animaciones
+      const totalAnimationDuration = 400 + 800 + 1200; // delay + logo + pausa
+      fadeTimeout = setTimeout(() => {
         Animated.timing(fadeAnim, {
           toValue: 0,
           duration: 500,
           useNativeDriver: true,
-        }).start(() => {
-          if (onAnimationComplete) {
-            onAnimationComplete();
+        }).start(({ finished }) => {
+          if (finished) {
+            animationCompleteCallback();
           }
         });
-      }, totalDuration);
+      }, totalAnimationDuration);
     };
 
     startAnimation();
-  }, [onAnimationComplete]);
+
+    return () => {
+      if (fadeTimeout) {
+        clearTimeout(fadeTimeout);
+      }
+    };
+  }, [isReady, onAnimationComplete]);
 
   // Estilos de animación para las líneas
   const createLineStyle = (animationValue: any, delay: number) => useAnimatedStyle(() => {
     const translateY = interpolate(
       animationValue.value,
       [0, 1],
-      [screenHeight, -100],
+      [dimensions.height, -100],
       Extrapolate.CLAMP
     );
     const opacity = interpolate(
@@ -117,6 +149,15 @@ const LoaderScreen: React.FC<LoaderScreenProps> = ({ onAnimationComplete }) => {
     };
   });
 
+  // Mostrar fondo blanco inmediatamente para evitar pantalla en blanco
+  if (!isReady) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.whiteBackground} />
+      </View>
+    );
+  }
+
   return (
     <Animated.View 
       style={[
@@ -128,14 +169,14 @@ const LoaderScreen: React.FC<LoaderScreenProps> = ({ onAnimationComplete }) => {
     >
       <View style={styles.whiteBackground}>
         {/* Líneas delgadas que suben rápidamente */}
-        <Reanimated.View style={[styles.line, styles.line1, line1Style]} />
-        <Reanimated.View style={[styles.line, styles.line2, line2Style]} />
-        <Reanimated.View style={[styles.line, styles.line3, line3Style]} />
-        <Reanimated.View style={[styles.line, styles.line4, line4Style]} />
-        <Reanimated.View style={[styles.line, styles.line5, line5Style]} />
-        <Reanimated.View style={[styles.line, styles.line6, line6Style]} />
-        <Reanimated.View style={[styles.line, styles.line7, line7Style]} />
-        <Reanimated.View style={[styles.line, styles.line8, line8Style]} />
+        <Reanimated.View style={[styles.line, { ...styles.line1, left: dimensions.width * 0.1 }, line1Style]} />
+        <Reanimated.View style={[styles.line, { ...styles.line2, left: dimensions.width * 0.2 }, line2Style]} />
+        <Reanimated.View style={[styles.line, { ...styles.line3, left: dimensions.width * 0.3 }, line3Style]} />
+        <Reanimated.View style={[styles.line, { ...styles.line4, left: dimensions.width * 0.4 }, line4Style]} />
+        <Reanimated.View style={[styles.line, { ...styles.line5, left: dimensions.width * 0.5 }, line5Style]} />
+        <Reanimated.View style={[styles.line, { ...styles.line6, left: dimensions.width * 0.6 }, line6Style]} />
+        <Reanimated.View style={[styles.line, { ...styles.line7, left: dimensions.width * 0.7 }, line7Style]} />
+        <Reanimated.View style={[styles.line, { ...styles.line8, left: dimensions.width * 0.8 }, line8Style]} />
 
         {/* Logo UNIK (Isologo) que sube junto con las líneas */}
         <Reanimated.View style={[styles.logoContainer, logoStyle]}>
@@ -181,39 +222,32 @@ const styles = StyleSheet.create({
   line: {
     position: 'absolute',
     width: 30, 
-    height: screenHeight * 1.5,
+    height: '150%',
     backgroundColor: '#7C3AED',
     opacity: 0.3,
   },
   line1: {
-    left: screenWidth * 0.1,
+    backgroundColor: '#7C3AED',
   },
   line2: {
-    left: screenWidth * 0.2,
     backgroundColor: '#6366F1',
   },
   line3: {
-    left: screenWidth * 0.3,
     backgroundColor: '#8B5CF6',
   },
   line4: {
-    left: screenWidth * 0.4,
     backgroundColor: '#A855F7',
   },
   line5: {
-    left: screenWidth * 0.5,
     backgroundColor: '#7C3AED',
   },
   line6: {
-    left: screenWidth * 0.6,
     backgroundColor: '#6366F1',
   },
   line7: {
-    left: screenWidth * 0.7,
     backgroundColor: '#8B5CF6',
   },
   line8: {
-    left: screenWidth * 0.8,
     backgroundColor: '#A855F7',
   },
 });

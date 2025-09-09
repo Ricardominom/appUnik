@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
@@ -10,9 +10,10 @@ export default function RootLayout() {
   
   useFrameworkReady();
 
-  const handleAnimationComplete = () => {
+  const handleAnimationComplete = useCallback(() => {
+    // Asegurar que el estado se actualice correctamente
     setIsLoading(false);
-  };
+  }, []);
 
   if (isLoading) {
     return <LoaderScreen onAnimationComplete={handleAnimationComplete} />;
