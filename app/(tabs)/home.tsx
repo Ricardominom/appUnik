@@ -20,7 +20,7 @@ export default function HomeScreen() {
         { id: 1, title: 'Seguro Empresa', icon: 'business-outline' },
         { id: 2, title: 'Familiares', icon: 'home-outline' },
         { id: 3, title: 'Seguro de Auto', icon: 'car-outline' },
-        { id: 4, title: 'Descubre tu Seguro Ideal', icon: 'puzzle-outline' },
+        { id: 4, title: 'Descubre tu Seguro Ideal', icon: 'search-outline' },
     ];
 
     const misFinanzas = [
