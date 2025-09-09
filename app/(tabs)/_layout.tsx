@@ -8,6 +8,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={({ route }) => ({
         headerShown: false,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
           // Ocultar la barra de navegación en pantallas de autenticación
           display: ['index', 'email-login', 'landing', 'create-account'].includes(route.name) 

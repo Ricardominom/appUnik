@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
+import AnimatedScreen from '@/components/AnimatedScreen';
 
 export default function HomeScreen() {
     const [activeCategory, setActiveCategory] = useState(0);
     
     const categories = [
-        { id: 0, name: 'Todo', color: '#6C5CE7' },
-        { id: 1, name: 'Life Style', color: '#FF6B6B' },
-        { id: 2, name: 'Seguros y Asistencias', color: '#4ECDC4' },
-        { id: 3, name: 'Finanzas', color: '#45B7D1' },
-        { id: 4, name: 'Experiencias', color: '#96CEB4' },
-        { id: 5, name: 'Mi RH', color: '#FFB6C1' },
-        { id: 6, name: 'Mis vales', color: '#FFDAB9' },
-        { id: 7, name: 'Cumplimiento', color: '#ADD8E6' },
+        { id: 0, name: 'Todo', color: colors.primary[500] },
+        { id: 1, name: 'Life Style', color: colors.accent[500] },
+        { id: 2, name: 'Seguros y Asistencias', color: colors.secondary[500] },
+        { id: 3, name: 'Finanzas', color: colors.primary[600] },
+        { id: 4, name: 'Experiencias', color: colors.accent[400] },
+        { id: 5, name: 'Mi RH', color: colors.secondary[400] },
+        { id: 6, name: 'Mis vales', color: colors.warning },
+        { id: 7, name: 'Cumplimiento', color: colors.primary[400] },
     ];
 
     const segurosVida = [
@@ -82,40 +83,40 @@ export default function HomeScreen() {
     );
 
     const renderServiceGrid = (title: string, services: any[]) => {
-        // Colores de fondo muy suaves para las cards como en la imagen
+        // Colores de fondo muy suaves para las cards usando colors.ts
         const cardColors = [
-            '#F0F8FF', // Azul muy claro (como Scan)
-            '#FAFAFA', // Gris muy claro (como Edit)
-            '#F0FFF0', // Verde muy claro (como Convert)
-            '#FFFEF0', // Amarillo muy claro (como Ask AI)
-            '#F8F8FF', // Lavanda muy claro
-            '#FFF8F0', // Crema muy claro
-            '#FFF0F5', // Rosa muy claro
-            '#F0FFF8', // Menta muy claro
+            colors.primary[50], // Azul muy claro
+            colors.neutral[50], // Gris muy claro
+            colors.secondary[50], // Verde muy claro
+            colors.accent[50], // Azul claro
+            colors.primary[100], // Lavanda muy claro
+            colors.accent[50], // Azul claro
+            colors.secondary[100], // Verde claro
+            colors.primary[50], // Azul muy claro
         ];
         
-        // Colores de fondo muy suaves para los iconos
+        // Colores de fondo muy suaves para los iconos usando colors.ts
         const iconBgColors = [
-            '#E8F4FD', // Azul pastel
-            '#F5F5F5', // Gris pastel
-            '#E8F5E8', // Verde pastel
-            '#FFF9E6', // Amarillo pastel
-            '#F0F0FF', // Lavanda pastel
-            '#FFF5E6', // Crema pastel
-            '#FFE4E1', // Rosa pastel
-            '#E0FFF0', // Menta pastel
+            colors.primary[100], // Azul pastel
+            colors.neutral[100], // Gris pastel
+            colors.secondary[100], // Verde pastel
+            colors.accent[100], // Azul pastel
+            colors.primary[200], // Lavanda pastel
+            colors.accent[100], // Azul pastel
+            colors.secondary[200], // Verde pastel
+            colors.primary[100], // Azul pastel
         ];
         
-        // Colores muy suaves para los iconos
+        // Colores muy suaves para los iconos usando colors.ts
         const iconColors = [
-            '#90A4AE', // Gris azulado suave
-            '#9E9E9E', // Gris suave
-            '#81C784', // Verde suave
-            '#FFB74D', // Naranja suave
-            '#B39DDB', // Púrpura suave
-            '#FFAB91', // Naranja claro
-            '#F48FB1', // Rosa suave
-            '#A5D6A7', // Verde claro
+            colors.primary[400], // Azul suave
+            colors.neutral[400], // Gris suave
+            colors.secondary[400], // Verde suave
+            colors.accent[400], // Azul suave
+            colors.primary[300], // Azul claro
+            colors.accent[400], // Azul suave
+            colors.secondary[400], // Verde suave
+            colors.primary[400], // Azul suave
         ];
 
         return (
@@ -210,7 +211,8 @@ export default function HomeScreen() {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <AnimatedScreen>
+            <SafeAreaView style={styles.container}>
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 {/* Header */}
                 <View style={styles.header}>
@@ -233,22 +235,23 @@ export default function HomeScreen() {
                 <View style={styles.bottomSpacing} />
             </ScrollView>
         </SafeAreaView>
+        </AnimatedScreen>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F2F2F7', // Color de fondo característico de iOS
+        backgroundColor: colors.neutral[50],
     },
     header: {
-        backgroundColor: '#F2F2F7',
+        backgroundColor: colors.neutral[50],
         paddingHorizontal: 20,
         paddingTop: 40,
         paddingBottom: 20,
     },
     headerTitle: {
-        color: '#000000',
+        color: colors.neutral[900],
         fontSize: 34.3,
         fontWeight: '700',
         textAlign: 'left',
@@ -264,14 +267,14 @@ const styles = StyleSheet.create({
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.white,
         borderRadius: 12,
         paddingHorizontal: 16,
         paddingVertical: 12,
         marginTop: 16,
         borderWidth: 1,
-        borderColor: '#E5E5EA',
-        shadowColor: '#000000',
+        borderColor: colors.neutral[200],
+        shadowColor: colors.black,
         shadowOffset: {
             width: 0,
             height: 1,
@@ -303,14 +306,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginRight: 10,
         marginLeft: 5,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.white,
         borderWidth: 1,
-        borderColor: '#E5E5EA',
+        borderColor: colors.neutral[200],
     },
     activeTab: {
-        backgroundColor: '#007AFF',
-        borderColor: '#007AFF',
-        shadowColor: '#007AFF',
+        backgroundColor: colors.primary[500],
+        borderColor: colors.primary[500],
+        shadowColor: colors.primary[500],
         shadowOffset: {
             width: 0,
             height: 2,
@@ -322,10 +325,10 @@ const styles = StyleSheet.create({
     categoryText: {
         fontSize: 15,
         fontWeight: '500',
-        color: '#000000',
+        color: colors.neutral[900],
     },
     activeCategoryText: {
-        color: '#FFFFFF',
+        color: colors.white,
         fontWeight: '600',
     },
     section: {
@@ -335,7 +338,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 22,
         fontWeight: '600',
-        color: '#000000',
+        color: colors.neutral[900],
         marginBottom: 16,
         letterSpacing: -0.3,
     },
@@ -350,8 +353,8 @@ const styles = StyleSheet.create({
         padding: 20,
         marginBottom: 16,
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-        shadowColor: '#000000',
+        backgroundColor: colors.white,
+        shadowColor: colors.black,
         shadowOffset: {
             width: 0,
             height: 1,
@@ -360,7 +363,7 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 1,
         borderWidth: 0.5,
-        borderColor: '#E5E5EA',
+        borderColor: colors.neutral[200],
     },
     serviceIconContainer: {
         width: 44,
@@ -373,7 +376,7 @@ const styles = StyleSheet.create({
     serviceTitle: {
         fontSize: 15,
         fontWeight: '500',
-        color: '#000000',
+        color: colors.neutral[900],
         textAlign: 'center',
         lineHeight: 20,
         letterSpacing: -0.1,

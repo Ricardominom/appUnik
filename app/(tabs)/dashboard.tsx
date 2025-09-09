@@ -11,6 +11,7 @@ import { useRouter } from 'expo-router';
 import { useAuthContext } from '@/context/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
+import AnimatedScreen from '@/components/AnimatedScreen';
 
 export default function DashboardScreen() {
   const router = useRouter();
@@ -35,7 +36,8 @@ export default function DashboardScreen() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <AnimatedScreen>
+      <SafeAreaView style={styles.container}>
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
@@ -118,13 +120,14 @@ export default function DashboardScreen() {
         <View style={styles.bottomSpacing} />
       </ScrollView>
     </SafeAreaView>
+    </AnimatedScreen>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: colors.neutral[50],
   },
   content: {
     flex: 1,
@@ -133,18 +136,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 50,
     paddingBottom: 20,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: colors.neutral[50],
   },
   greeting: {
     fontSize: 34,
     fontWeight: '700',
-    color: '#000000',
+    color: colors.neutral[900],
     letterSpacing: -0.5,
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 19,
-    color: '#8E8E93',
+    color: colors.neutral[400],
     fontWeight: '400',
   },
   statsContainer: {
@@ -155,17 +158,17 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.white,
     borderRadius: 16,
     padding: 20,
     alignItems: 'center',
-    shadowColor: '#000000',
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04,
     shadowRadius: 8,
     elevation: 1,
     borderWidth: 0.5,
-    borderColor: '#E5E5EA',
+    borderColor: colors.neutral[200],
   },
   statIcon: {
     width: 44,
@@ -178,12 +181,12 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#000000',
+    color: colors.neutral[900],
     letterSpacing: -0.3,
   },
   statTitle: {
     fontSize: 13,
-    color: '#8E8E93',
+    color: colors.neutral[400],
     fontWeight: '500',
     textAlign: 'center',
     marginTop: 4,
@@ -195,30 +198,30 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 22,
     fontWeight: '600',
-    color: '#000000',
+    color: colors.neutral[900],
     marginBottom: 16,
     letterSpacing: -0.3,
   },
   activityCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.white,
     borderRadius: 12,
     padding: 16,
     marginBottom: 8,
-    shadowColor: '#000000',
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04,
     shadowRadius: 4,
     elevation: 1,
     borderWidth: 0.5,
-    borderColor: '#E5E5EA',
+    borderColor: colors.neutral[200],
   },
   activityIcon: {
     width: 36,
     height: 36,
     borderRadius: 8,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: colors.neutral[50],
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
@@ -229,33 +232,33 @@ const styles = StyleSheet.create({
   activityTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#000000',
+    color: colors.neutral[900],
     marginBottom: 2,
   },
   activitySubtitle: {
     fontSize: 14,
-    color: '#8E8E93',
+    color: colors.neutral[400],
     fontWeight: '400',
   },
   activityTime: {
     fontSize: 14,
-    color: '#8E8E93',
+    color: colors.neutral[400],
     fontWeight: '500',
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.white,
     borderRadius: 12,
     padding: 16,
     marginBottom: 8,
-    shadowColor: '#000000',
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04,
     shadowRadius: 4,
     elevation: 1,
     borderWidth: 0.5,
-    borderColor: '#E5E5EA',
+    borderColor: colors.neutral[200],
   },
   menuIcon: {
     width: 40,
@@ -271,12 +274,12 @@ const styles = StyleSheet.create({
   menuTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#000000',
+    color: colors.neutral[900],
     marginBottom: 2,
   },
   menuSubtitle: {
     fontSize: 14,
-    color: '#8E8E93',
+    color: colors.neutral[400],
     fontWeight: '400',
   },
   bottomSpacing: {

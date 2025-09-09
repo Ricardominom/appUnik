@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
+import AnimatedScreen from '@/components/AnimatedScreen';
 
 export default function ProfileScreen() {
     const profileStats = [
@@ -30,7 +31,8 @@ export default function ProfileScreen() {
     ];
 
     return (
-        <SafeAreaView style={styles.container}>
+        <AnimatedScreen>
+            <SafeAreaView style={styles.container}>
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 {/* Header */}
                 <View style={styles.header}>
@@ -108,13 +110,14 @@ export default function ProfileScreen() {
                 <View style={styles.bottomSpacing} />
             </ScrollView>
         </SafeAreaView>
+        </AnimatedScreen>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F2F2F7',
+        backgroundColor: colors.neutral[50],
     },
     content: {
         flex: 1,
@@ -123,34 +126,34 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 50,
         paddingBottom: 20,
-        backgroundColor: '#F2F2F7',
+        backgroundColor: colors.neutral[50],
     },
     greeting: {
         fontSize: 34,
         fontWeight: '700',
-        color: '#000000',
+        color: colors.neutral[900],
         letterSpacing: -0.5,
         marginBottom: 5,
     },
     subtitle: {
         fontSize: 19,
-        color: '#8E8E93',
+        color: colors.neutral[400],
         fontWeight: '400',
     },
     userSection: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.white,
         alignItems: 'center',
         paddingVertical: 32,
         marginHorizontal: 20,
         marginBottom: 24,
         borderRadius: 16,
-        shadowColor: '#000000',
+        shadowColor: colors.black,
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.04,
         shadowRadius: 8,
         elevation: 1,
         borderWidth: 0.5,
-        borderColor: '#E5E5EA',
+        borderColor: colors.neutral[200],
     },
     avatarContainer: {
         width: 80,
@@ -164,21 +167,21 @@ const styles = StyleSheet.create({
     avatarText: {
         fontSize: 28,
         fontWeight: '600',
-        color: '#FFFFFF',
+        color: colors.white,
     },
     userName: {
         fontSize: 22,
         fontWeight: '600',
-        color: '#000000',
+        color: colors.neutral[900],
         marginBottom: 4,
     },
     userEmail: {
         fontSize: 16,
-        color: '#8E8E93',
+        color: colors.neutral[400],
         marginBottom: 16,
     },
     editButton: {
-        backgroundColor: '#F2F2F7',
+        backgroundColor: colors.neutral[50],
         paddingHorizontal: 24,
         paddingVertical: 8,
         borderRadius: 20,
@@ -196,17 +199,17 @@ const styles = StyleSheet.create({
     },
     statCard: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.white,
         borderRadius: 12,
         padding: 16,
         alignItems: 'center',
-        shadowColor: '#000000',
+        shadowColor: colors.black,
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.04,
         shadowRadius: 4,
         elevation: 1,
         borderWidth: 0.5,
-        borderColor: '#E5E5EA',
+        borderColor: colors.neutral[200],
     },
     statIcon: {
         width: 36,
@@ -219,12 +222,12 @@ const styles = StyleSheet.create({
     statValue: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#000000',
+        color: colors.neutral[900],
         marginBottom: 2,
     },
     statTitle: {
         fontSize: 12,
-        color: '#8E8E93',
+        color: colors.neutral[400],
         fontWeight: '500',
         textAlign: 'center',
     },
@@ -235,21 +238,21 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#000000',
+        color: colors.neutral[900],
         marginBottom: 12,
         letterSpacing: -0.2,
     },
     menuContainer: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.white,
         borderRadius: 12,
         overflow: 'hidden',
-        shadowColor: '#000000',
+        shadowColor: colors.black,
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.04,
         shadowRadius: 4,
         elevation: 1,
         borderWidth: 0.5,
-        borderColor: '#E5E5EA',
+        borderColor: colors.neutral[200],
     },
     menuItem: {
         flexDirection: 'row',
@@ -258,7 +261,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 16,
         borderBottomWidth: 0.5,
-        borderBottomColor: '#E5E5EA',
+        borderBottomColor: colors.neutral[200],
     },
     lastMenuItem: {
         borderBottomWidth: 0,
@@ -278,22 +281,22 @@ const styles = StyleSheet.create({
     menuItemText: {
         fontSize: 16,
         fontWeight: '500',
-        color: '#000000',
+        color: colors.neutral[900],
     },
     logoutButton: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.white,
         borderRadius: 12,
         paddingVertical: 16,
-        shadowColor: '#000000',
+        shadowColor: colors.black,
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.04,
         shadowRadius: 4,
         elevation: 1,
         borderWidth: 0.5,
-        borderColor: '#E5E5EA',
+        borderColor: colors.neutral[200],
     },
     logoutText: {
         fontSize: 16,

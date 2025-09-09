@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
+import AnimatedScreen from '@/components/AnimatedScreen';
 
 export default function FavoritesScreen() {
     const [favorites, setFavorites] = useState([
@@ -16,7 +17,8 @@ export default function FavoritesScreen() {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <AnimatedScreen>
+            <SafeAreaView style={styles.container}>
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 {/* Header */}
                 <View style={styles.header}>
@@ -79,13 +81,14 @@ export default function FavoritesScreen() {
                 <View style={styles.bottomSpacing} />
             </ScrollView>
         </SafeAreaView>
+        </AnimatedScreen>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F2F2F7',
+        backgroundColor: colors.neutral[50],
     },
     content: {
         flex: 1,
@@ -94,18 +97,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 50,
         paddingBottom: 20,
-        backgroundColor: '#F2F2F7',
+        backgroundColor: colors.neutral[50],
     },
     greeting: {
         fontSize: 34,
         fontWeight: '700',
-        color: '#000000',
+        color: colors.neutral[900],
         letterSpacing: -0.5,
         marginBottom: 5,
     },
     subtitle: {
         fontSize: 19,
-        color: '#8E8E93',
+        color: colors.neutral[400],
         fontWeight: '400',
     },
     section: {
@@ -115,24 +118,24 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 22,
         fontWeight: '600',
-        color: '#000000',
+        color: colors.neutral[900],
         marginBottom: 16,
         letterSpacing: -0.3,
     },
     favoriteCard: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.white,
         borderRadius: 12,
         padding: 16,
         marginBottom: 8,
-        shadowColor: '#000000',
+        shadowColor: colors.black,
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.04,
         shadowRadius: 4,
         elevation: 1,
         borderWidth: 0.5,
-        borderColor: '#E5E5EA',
+        borderColor: colors.neutral[200],
     },
     favoriteIcon: {
         width: 44,
@@ -148,12 +151,12 @@ const styles = StyleSheet.create({
     favoriteTitle: {
         fontSize: 16,
         fontWeight: '500',
-        color: '#000000',
+        color: colors.neutral[900],
         marginBottom: 2,
     },
     favoriteCategory: {
         fontSize: 14,
-        color: '#8E8E93',
+        color: colors.neutral[400],
         fontWeight: '400',
     },
     favoriteAction: {
@@ -169,7 +172,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 50,
-        backgroundColor: '#F2F2F7',
+        backgroundColor: colors.neutral[50],
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 24,
@@ -177,13 +180,13 @@ const styles = StyleSheet.create({
     emptyTitle: {
         fontSize: 22,
         fontWeight: '600',
-        color: '#000000',
+        color: colors.neutral[900],
         marginBottom: 8,
         textAlign: 'center',
     },
     emptySubtitle: {
         fontSize: 16,
-        color: '#8E8E93',
+        color: colors.neutral[400],
         textAlign: 'center',
         lineHeight: 22,
         fontWeight: '400',
@@ -195,17 +198,17 @@ const styles = StyleSheet.create({
     },
     quickAccessCard: {
         width: '47%',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: colors.white,
         borderRadius: 12,
         padding: 16,
         alignItems: 'center',
-        shadowColor: '#000000',
+        shadowColor: colors.black,
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.04,
         shadowRadius: 4,
         elevation: 1,
         borderWidth: 0.5,
-        borderColor: '#E5E5EA',
+        borderColor: colors.neutral[200],
     },
     quickAccessIcon: {
         width: 40,
@@ -218,7 +221,7 @@ const styles = StyleSheet.create({
     quickAccessTitle: {
         fontSize: 14,
         fontWeight: '500',
-        color: '#000000',
+        color: colors.neutral[900],
         textAlign: 'center',
     },
     bottomSpacing: {
