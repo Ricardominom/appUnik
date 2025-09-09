@@ -11,13 +11,15 @@ import {
     ExperienciasSection,
     RecursosHumanosSection,
     MisValesSection,
-    CumplimientoSection
+    CumplimientoSection,
+    GastosMedicosMenores
 } from '@/components/home';
 
 export default function HomeScreen() {
     const [activeCategory, setActiveCategory] = useState(0);
     const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
     const [showSubcategories, setShowSubcategories] = useState(false);
+    const [showGastosMedicosMenores, setShowGastosMedicosMenores] = useState(false);
     
     const categories = [
         { id: 0, name: 'Todo', color: colors.primary[500] },
@@ -38,6 +40,9 @@ export default function HomeScreen() {
         } else if (title === 'Familiares') {
             setSelectedSubcategory('Seguros familiares');
             setShowSubcategories(true);
+        } else if (title === 'Gastos Médicos Menores') {
+            setShowGastosMedicosMenores(true);
+            setShowSubcategories(false);
         }
     };
 
@@ -45,6 +50,13 @@ export default function HomeScreen() {
     const handleBackPress = () => {
         setShowSubcategories(false);
         setSelectedSubcategory(null);
+    };
+
+    // Función para volver atrás desde Gastos Médicos Menores
+    const handleBackFromGastosMedicos = () => {
+        setShowGastosMedicosMenores(false);
+        setSelectedSubcategory('Seguros empresa');
+        setShowSubcategories(true);
     };
 
     const renderCategoryTabs = () => {
@@ -196,49 +208,55 @@ export default function HomeScreen() {
     };
 
     return (
-            <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-                {/* Header */}
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Buenos días</Text>
-                    <Text style={styles.subGreeting}>¿Qué haremos hoy?</Text>
-                    
-                    {/* Search Bar */}
-                    <TouchableOpacity style={styles.searchContainer}>
-                        <Ionicons name="search-outline" size={18} color="#8E8E93" style={styles.searchIcon} />
-                        <Text style={styles.searchText}>Buscar servicios...</Text>
-                    </TouchableOpacity>
+        <>
+            {showGastosMedicosMenores ? (
+                <GastosMedicosMenores onBack={handleBackFromGastosMedicos} />
+            ) : (
+                <SafeAreaView style={styles.container}>
+                    <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+                        {/* Header */}
+                        <View style={styles.header}>
+                            <Text style={styles.headerTitle}>Buenos días</Text>
+                            <Text style={styles.subGreeting}>¿Qué haremos hoy?</Text>
+                            
+                            {/* Search Bar */}
+                            <TouchableOpacity style={styles.searchContainer}>
+                                <Ionicons name="search-outline" size={18} color="#8E8E93" style={styles.searchIcon} />
+                                <Text style={styles.searchText}>Buscar servicios...</Text>
+                            </TouchableOpacity>
 
-                    {/* Promotional Card - Solo mostrar en home principal */}
-                    {!showSubcategories && (
-                        <View style={styles.promotionalCard}>
-                            <View style={styles.promotionalContent}>
-                                <View style={styles.promotionalIconContainer}>
-                                    <Ionicons name="sparkles" size={24} color="#8B5CF6" />
+                            {/* Promotional Card - Solo mostrar en home principal */}
+                            {!showSubcategories && (
+                                <View style={styles.promotionalCard}>
+                                    <View style={styles.promotionalContent}>
+                                        <View style={styles.promotionalIconContainer}>
+                                            <Ionicons name="sparkles" size={24} color="#8B5CF6" />
+                                        </View>
+                                        <View style={styles.promotionalTextContainer}>
+                                            <Text style={styles.promotionalTitle}>Asistenta de seguros</Text>
+                                            <Text style={styles.promotionalSubtitle}>
+                                                Encuentra la mejor opción{'\n'}en segundos
+                                            </Text>
+                                        </View>
+                                        <TouchableOpacity style={styles.promotionalButton}>
+                                            <Text style={styles.promotionalButtonText}>Empezar</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
-                                <View style={styles.promotionalTextContainer}>
-                                    <Text style={styles.promotionalTitle}>Asistenta de seguros</Text>
-                                    <Text style={styles.promotionalSubtitle}>
-                                        Encuentra la mejor opción{'\n'}en segundos
-                                    </Text>
-                                </View>
-                                <TouchableOpacity style={styles.promotionalButton}>
-                                    <Text style={styles.promotionalButtonText}>Empezar</Text>
-                                </TouchableOpacity>
-                            </View>
+                            )}
                         </View>
-                    )}
-                </View>
 
-                {/* Category Tabs */}
-                {renderCategoryTabs()}
+                        {/* Category Tabs */}
+                        {renderCategoryTabs()}
 
-                {/* Dynamic Content based on active category */}
-                {renderCategoryContent()}
+                        {/* Dynamic Content based on active category */}
+                        {renderCategoryContent()}
 
-                <View style={styles.bottomSpacing} />
-            </ScrollView>
-        </SafeAreaView>
+                        <View style={styles.bottomSpacing} />
+                    </ScrollView>
+                </SafeAreaView>
+            )}
+        </>
     );
 }
 
