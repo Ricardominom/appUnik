@@ -174,7 +174,7 @@ export default function EmailLoginScreen() {
   };
 
   const handleBack = () => {
-    router.push('/login');
+    router.push('/landing');
   };
 
   return (
@@ -222,12 +222,17 @@ export default function EmailLoginScreen() {
         >
           <ArrowLeft size={24} color="white" strokeWidth={2} />
         </TouchableOpacity>
+        <View style={styles.placeholder} />
+        <View style={styles.placeholder} />
+      </View>
+
+      {/* Logo Section */}
+      <View style={styles.logoSection}>
         <Image 
           source={{ uri: 'https://raw.githubusercontent.com/Nefta11/MiPortafolioNefta/refs/heads/main/SINF.png' }}
-          style={styles.headerLogoImage}
+          style={styles.mainLogo}
           contentFit="contain"
         />
-        <View style={styles.placeholder} />
       </View>
 
       {/* Main Content */}
@@ -273,17 +278,17 @@ export default function EmailLoginScreen() {
               </TouchableOpacity>
 
               {/* Login Button */}
-              <Animated.View style={[buttonAnimStyle]}>
+              <View style={styles.loginButtonContainer}>
                 <GradientButton
                   title={isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
                   variant="white"
                   size="large"
                   loading={isLoading}
-                  animated={!isLoading}
+                  animated={false}
                   onPress={handleLogin}
                   disabled={isLoading}
                 />
-              </Animated.View>
+              </View>
             </Animated.View>
           </Animated.View>
       </View>
@@ -319,6 +324,21 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     width: touchTargets.minimum,
+  },
+  logoSection: {
+    position: 'absolute',
+    top: layout.getResponsiveHeight(10),
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  mainLogo: {
+    width: layout.isSmallDevice ? 200 : 245,
+    height: layout.isSmallDevice ? 200 : 245,
+    maxWidth: '85%',
+    maxHeight: '85%',
   },
   topDecoration1: {
     position: 'absolute',
@@ -373,7 +393,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: 'white',
-    marginTop: spacing.sm,
+    marginTop: layout.getResponsiveHeight(25),
     borderTopLeftRadius: spacing['3xl'],
     borderTopRightRadius: spacing['3xl'],
     paddingHorizontal: layout.horizontalMargin,
@@ -416,5 +436,8 @@ const styles = StyleSheet.create({
     fontSize: layout.isSmallDevice ? 12 : 14,
     color: colors.primary[500],
     fontFamily: typography.fontFamily.semibold,
+  },
+  loginButtonContainer: {
+    marginTop: layout.getResponsiveHeight(5),
   },
 });

@@ -280,7 +280,7 @@ export default function CreateAccountScreen() {
   };
 
   const handleBack = () => {
-    router.push('/login');
+    router.push('/landing');
   };
 
   return (
@@ -426,17 +426,17 @@ export default function CreateAccountScreen() {
               />
 
               {/* Create Account Button */}
-              <Animated.View style={[buttonAnimStyle]}>
+              <View style={styles.buttonContainer}>
                 <GradientButton
                   title={isLoading ? 'Creando cuenta...' : 'Crear cuenta'}
                   variant="white"
                   size="large"
                   loading={isLoading}
-                  animated={!isLoading}
+                  animated={false}
                   onPress={handleCreateAccount}
                   disabled={isLoading}
                 />
-              </Animated.View>
+              </View>
             </Animated.View>
           </Animated.View>
       </View>
@@ -566,5 +566,8 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
+  },
+  buttonContainer: {
+    marginTop: layout.getResponsiveHeight(5),
   },
 });
