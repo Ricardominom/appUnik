@@ -210,16 +210,13 @@ export default function HomeScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* Header */}
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>inicio</Text>
-                <View style={styles.searchContainer}>
-                    <Ionicons name="search-outline" size={20} color="#999" style={styles.searchIcon} />
-                    <Text style={styles.searchText}>Search...</Text>
-                </View>
-            </View>
-
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+                {/* Header */}
+                <View style={styles.header}>
+                    <Text style={styles.headerTitle}>Buenos días</Text>
+                    <Text style={styles.subGreeting}>¿Qué haremos hoy?</Text>
+                </View>
+
                 {/* Category Tabs */}
                 {renderCategoryTabs()}
 
@@ -235,80 +232,78 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f8f9fa',
+        backgroundColor: '#F2F2F7', // Color de fondo característico de iOS
     },
     header: {
-        backgroundColor: '#6366F1',
+        backgroundColor: '#F2F2F7',
         paddingHorizontal: 20,
-        paddingTop: 10,
+        paddingTop: 40,
         paddingBottom: 20,
     },
     headerTitle: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: '600',
-        textAlign: 'center',
-        marginBottom: 15,
+        color: '#000000',
+        fontSize: 34.3,
+        fontWeight: '700',
+        textAlign: 'left',
+        marginBottom: 5,
+        letterSpacing: -0.5,
     },
-    searchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        borderRadius: 25,
-        paddingHorizontal: 15,
-        paddingVertical: 12,
-    },
-    searchIcon: {
-        marginRight: 10,
-    },
-    searchText: {
-        color: '#999',
-        fontSize: 16,
+    subGreeting: {
+        fontSize: 19.3,
+        color: '#8E8E93',
+        marginTop: 2,
+        fontWeight: '400',
     },
     content: {
         flex: 1,
-        paddingHorizontal: 20,
     },
     categoryTabs: {
-        marginVertical: 20,
-        paddingHorizontal: 0,
+        marginVertical: 16,
+        paddingHorizontal: 5,
     },
     categoryTab: {
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderRadius: 25,
-        minWidth: 120,
+        paddingHorizontal: 18,
+        paddingVertical: 8,
+        borderRadius: 20,
+        minWidth: 100,
         alignItems: 'center',
-        marginRight: 2,
-        marginLeft: 2,
+        marginRight: 10,
+        marginLeft: 5,
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderColor: '#E5E5EA',
     },
     activeTab: {
-        shadowColor: '#000',
+        backgroundColor: '#007AFF',
+        borderColor: '#007AFF',
+        shadowColor: '#007AFF',
         shadowOffset: {
             width: 0,
             height: 2,
         },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-        elevation: 3,
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 4,
     },
     categoryText: {
-        fontSize: 12,
+        fontSize: 15,
         fontWeight: '500',
-        color: '#333',
+        color: '#000000',
     },
     activeCategoryText: {
-        color: '#333',
+        color: '#FFFFFF',
         fontWeight: '600',
     },
     section: {
-        marginBottom: 30,
+        marginBottom: 32,
+        paddingHorizontal: 20,
     },
     sectionTitle: {
-        fontSize: 20,
-        fontWeight: '700',
-        color: '#1a1a1a',
-        marginBottom: 15,
+        fontSize: 22,
+        fontWeight: '600',
+        color: '#000000',
+        marginBottom: 16,
+        letterSpacing: -0.3,
     },
     serviceGrid: {
         flexDirection: 'row',
@@ -317,33 +312,37 @@ const styles = StyleSheet.create({
     },
     serviceCard: {
         width: '48%',
-        borderRadius: 20,
+        borderRadius: 16,
         padding: 20,
-        marginBottom: 15,
+        marginBottom: 16,
         alignItems: 'center',
-        shadowColor: '#000',
+        backgroundColor: '#FFFFFF',
+        shadowColor: '#000000',
         shadowOffset: {
             width: 0,
-            height: 4,
+            height: 1,
         },
-        shadowOpacity: 0.15,
-        shadowRadius: 12,
-        elevation: 5,
+        shadowOpacity: 0.04,
+        shadowRadius: 8,
+        elevation: 1,
+        borderWidth: 0.5,
+        borderColor: '#E5E5EA',
     },
     serviceIconContainer: {
-        width: 50,
-        height: 50,
-        borderRadius: 15,
+        width: 44,
+        height: 44,
+        borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 12,
     },
     serviceTitle: {
-        fontSize: 14,
-        fontWeight: '600',
-        color: '#1a1a1a',
+        fontSize: 15,
+        fontWeight: '500',
+        color: '#000000',
         textAlign: 'center',
-        lineHeight: 18,
+        lineHeight: 20,
+        letterSpacing: -0.1,
     },
     bottomSpacing: {
         height: 100,
