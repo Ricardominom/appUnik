@@ -1,1 +1,0 @@
-export { EstiloVidaSection } from './EstiloVidaSection';

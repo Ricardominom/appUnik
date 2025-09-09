@@ -1,11 +1,41 @@
 // Estilos compartidos
 export { homeStyles } from './styles';
 
+// Componentes compartidos
+export { 
+    ServiceSection, 
+    ServiceCard, 
+    TabContainer, 
+    ContactSection, 
+    PolicyCard, 
+    SearchBar 
+} from './shared';
+
+export type { 
+    Service, 
+    SectionColors, 
+    Tab, 
+    ContactButton, 
+    PolicyCardData 
+} from './shared';
+
+// Configuración de datos
+export { SECTION_SERVICES, SECTION_COLORS, SECTION_TITLES } from './data';
+
 // Secciones principales
-export { EstiloVidaSection } from './estilo-vida';
-export { SegurosVidaSection, SegurosEmpresaSubcategory, FamiliaresSubcategory, GastosMedicosMenores, SeguroDeVida, SeguroVidaFamiliar } from './seguros-vida';
-export { FinanzasSection } from './finanzas';
-export { ExperienciasSection } from './experiencias';
-export { RecursosHumanosSection } from './recursos-humanos';
-export { MisValesSection } from './mis-vales';
-export { CumplimientoSection } from './cumplimiento';
+export { EstiloVidaSection } from './estilo-vida/EstiloVidaSection';
+export { FinanzasSection } from './finanzas/FinanzasSection';
+export { ExperienciasSection } from './experiencias/ExperienciasSection';
+export { RecursosHumanosSection } from './recursos-humanos/RecursosHumanosSection';
+export { MisValesSection } from './mis-vales/MisValesSection';
+export { CumplimientoSection } from './cumplimiento/CumplimientoSection';
+
+// Secciones de seguros
+export { 
+    SegurosVidaSection, 
+    SegurosEmpresaSubcategory, 
+    FamiliaresSubcategory, 
+    GastosMedicosMenores, 
+    SeguroDeVida, 
+    SeguroVidaFamiliar 
+} from './seguros-vida';

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
+import { TabContainer, ContactSection, PolicyCard, SearchBar } from '../../shared';
+import type { Tab, PolicyCardData } from '../../shared';
 
 interface GastosMedicosMenoresProps {
     onBack: () => void;
@@ -10,12 +12,26 @@ interface GastosMedicosMenoresProps {
 export const GastosMedicosMenores: React.FC<GastosMedicosMenoresProps> = ({ onBack }) => {
     const [activeTab, setActiveTab] = useState(1);
 
-    const tabs = [
+    const tabs: Tab[] = [
         { id: 0, name: 'Seguros y Asistencias', key: 'seguros' },
         { id: 1, name: 'Gastos Médicos Menores', key: 'gastos' },
         { id: 2, name: 'Consultas sin costo', key: 'consultas' },
         { id: 3, name: 'Costo preferencial', key: 'costo-preferencial' }
     ];
+
+    const policyData: PolicyCardData = {
+        title: 'Premier',
+        number: 'xxxx - xxxx - xxxx - xxxx',
+        subtitle: 'Gastos Medicos Menores'
+    };
+
+    const handleTabPress = (tabId: number) => {
+        if (tabId === 0) {
+            onBack();
+        } else {
+            setActiveTab(tabId);
+        }
+    };
 
     // Servicios para la pestaña "Consultas sin costo"
     const consultasSinCostoServices = [
@@ -120,33 +136,12 @@ export const GastosMedicosMenores: React.FC<GastosMedicosMenoresProps> = ({ onBa
             case 1: // Gastos Médicos Menores (ahora muestra el contenido que antes tenía Seguros y Asistencias)
                 return (
                     <View style={styles.tabContent}>
-                        <View style={styles.serviceCard}>
-                            <View style={styles.cardHeader}>
-                                <Text style={styles.cardTitle}>Premier</Text>
-                            </View>
-                            <View style={styles.cardContent}>
-                                <Text style={styles.cardNumber}>xxxx - xxxx - xxxx - xxxx</Text>
-                                <Text style={styles.cardSubtitle}>Gastos Medicos Menores</Text>
-                                <TouchableOpacity style={styles.detailsButton}>
-                                    <Text style={styles.detailsButtonText}>Ver detalles</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        <PolicyCard 
+                            policy={policyData}
+                            onDetailsPress={() => console.log('Details pressed')}
+                        />
                         
-                        <View style={styles.contactSection}>
-                            <Text style={styles.contactSectionTitle}>Contactanos</Text>
-                            <View style={styles.contactButtons}>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="call" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="chatbubbles" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="location" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        <ContactSection />
                         
                         <View style={styles.contactSection}>
                             <View style={styles.contactGrid}>
@@ -171,18 +166,10 @@ export const GastosMedicosMenores: React.FC<GastosMedicosMenoresProps> = ({ onBa
             case 2: // Consultas sin costo
                 return (
                     <View style={styles.tabContent}>
-                        <View style={styles.serviceCard}>
-                            <View style={styles.cardHeader}>
-                                <Text style={styles.cardTitle}>Premier</Text>
-                            </View>
-                            <View style={styles.cardContent}>
-                                <Text style={styles.cardNumber}>xxxx - xxxx - xxxx - xxxx</Text>
-                                <Text style={styles.cardSubtitle}>Gastos Medicos Menores</Text>
-                                <TouchableOpacity style={styles.detailsButton}>
-                                    <Text style={styles.detailsButtonText}>Ver detalles</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        <PolicyCard 
+                            policy={policyData}
+                            onDetailsPress={() => console.log('Details pressed')}
+                        />
                         
                         <View style={styles.servicesGrid}>
                             {consultasSinCostoServices.map((service, index) => (
@@ -195,38 +182,17 @@ export const GastosMedicosMenores: React.FC<GastosMedicosMenoresProps> = ({ onBa
                             ))}
                         </View>
                         
-                        <View style={styles.contactSection}>
-                            <Text style={styles.contactSectionTitle}>Contactanos</Text>
-                            <View style={styles.contactButtons}>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="call" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="chatbubbles" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="location" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        <ContactSection />
                     </View>
                 );
             
             case 3: // Costo preferencial
                 return (
                     <View style={styles.tabContent}>
-                        <View style={styles.serviceCard}>
-                            <View style={styles.cardHeader}>
-                                <Text style={styles.cardTitle}>Premier</Text>
-                            </View>
-                            <View style={styles.cardContent}>
-                                <Text style={styles.cardNumber}>xxxx - xxxx - xxxx - xxxx</Text>
-                                <Text style={styles.cardSubtitle}>Gastos Medicos Menores</Text>
-                                <TouchableOpacity style={styles.detailsButton}>
-                                    <Text style={styles.detailsButtonText}>Ver detalles</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        <PolicyCard 
+                            policy={policyData}
+                            onDetailsPress={() => console.log('Details pressed')}
+                        />
                         
                         <View style={styles.servicesGrid}>
                             {costoPreferencialServices.map((service, index) => (
@@ -239,20 +205,7 @@ export const GastosMedicosMenores: React.FC<GastosMedicosMenoresProps> = ({ onBa
                             ))}
                         </View>
                         
-                        <View style={styles.contactSection}>
-                            <Text style={styles.contactSectionTitle}>Contactanos</Text>
-                            <View style={styles.contactButtons}>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="call" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="chatbubbles" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="location" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        <ContactSection />
                     </View>
                 );
             
@@ -263,43 +216,12 @@ export const GastosMedicosMenores: React.FC<GastosMedicosMenoresProps> = ({ onBa
 
     return (
         <View style={styles.container}>
-            {/* Search Bar */}
-            <View style={styles.searchContainer}>
-                <Ionicons name="search" size={18} color="#8E8E93" />
-                <Text style={styles.searchText}>Search...</Text>
-            </View>
-
-            {/* Tabs */}
-            <ScrollView 
-                horizontal 
-                showsHorizontalScrollIndicator={false} 
-                style={styles.tabsContainer}
-                contentContainerStyle={styles.tabsContent}
-            >
-                {tabs.map((tab) => (
-                    <TouchableOpacity
-                        key={tab.id}
-                        style={[
-                            styles.tab,
-                            activeTab === tab.id && styles.activeTab
-                        ]}
-                        onPress={() => {
-                            if (tab.id === 0) {
-                                onBack();
-                            } else {
-                                setActiveTab(tab.id);
-                            }
-                        }}
-                    >
-                        <Text style={[
-                            styles.tabText,
-                            activeTab === tab.id && styles.activeTabText
-                        ]}>
-                            {tab.name}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
+            <SearchBar />
+            <TabContainer 
+                tabs={tabs}
+                activeTab={activeTab}
+                onTabPress={handleTabPress}
+            />
 
             {/* Tab Content */}
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
@@ -315,53 +237,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5F5F5',
         paddingTop: 35,
     },
-    searchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#E5E5E5',
-        marginHorizontal: 16,
-        marginTop: 8,
-        marginBottom: 8,
-        paddingHorizontal: 12,
-        paddingVertical: 10,
-        borderRadius: 8,
-    },
-    searchText: {
-        marginLeft: 8,
-        color: '#8E8E93',
-        fontSize: 16,
-    },
-    tabsContainer: {
-        maxHeight: 60, // Altura fija para las pestañas
-        marginBottom: 8,
-    },
-    tabsContent: {
-        paddingHorizontal: 16,
-        alignItems: 'center',
-    },
-    tab: {
-        paddingHorizontal: 20, // Más padding horizontal
-        paddingVertical: 12, // Más padding vertical
-        marginRight: 12,
-        borderRadius: 25, // Más redondeado
-        backgroundColor: '#E5E5E5',
-        minHeight: 44, // Altura mínima estándar iOS
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    activeTab: {
-        backgroundColor: colors.primary[500],
-    },
-    tabText: {
-        fontSize: 14,
-        color: '#666',
-        fontWeight: '500',
-        textAlign: 'center',
-    },
-    activeTabText: {
-        color: '#FFFFFF',
-        fontWeight: '600',
-    },
     content: {
         flex: 1,
         paddingHorizontal: 16,
@@ -369,49 +244,6 @@ const styles = StyleSheet.create({
     },
     tabContent: {
         paddingBottom: 120,
-    },
-    serviceCard: {
-        backgroundColor: '#FFFFFF',
-        borderRadius: 12,
-        padding: 16,
-        marginBottom: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
-        borderWidth: 2,
-        borderColor: colors.primary[300],
-    },
-    cardHeader: {
-        marginBottom: 12,
-    },
-    cardTitle: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#333',
-    },
-    cardContent: {
-        gap: 8,
-    },
-    cardNumber: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#666',
-        marginBottom: 4,
-    },
-    cardSubtitle: {
-        fontSize: 14,
-        color: '#666',
-        marginBottom: 12,
-    },
-    detailsButton: {
-        alignSelf: 'flex-end',
-    },
-    detailsButtonText: {
-        color: colors.primary[500],
-        fontSize: 14,
-        fontWeight: '600',
     },
     servicesGrid: {
         flexDirection: 'row',
@@ -454,35 +286,9 @@ const styles = StyleSheet.create({
     contactSection: {
         marginTop: 20,
     },
-    contactSectionTitle: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: '#333',
-        marginBottom: 16,
-        textAlign: 'center',
-    },
     contactGrid: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-    },
-    contactButton: {
-        backgroundColor: colors.primary[500],
-        borderRadius: 12,
-        padding: 16,
-        alignItems: 'center',
-        minWidth: 80,
-    },
-    contactButtons: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        gap: 16,
-    },
-    contactText: {
-        color: '#333',
-        fontSize: 12,
-        textAlign: 'center',
-        marginTop: 8,
-        fontWeight: '500',
     },
     consultaButton: {
         flex: 1,

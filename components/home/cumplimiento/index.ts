@@ -1,1 +1,0 @@
-export { CumplimientoSection } from './CumplimientoSection';
