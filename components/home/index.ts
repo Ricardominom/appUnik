@@ -35,6 +35,7 @@ export {
     SegurosVidaSection, 
     SegurosEmpresaSubcategory, 
     FamiliaresSubcategory, 
+    SeguroDeAuto,
     GastosMedicosMenores, 
     SeguroDeVida, 
     SeguroVidaFamiliar 

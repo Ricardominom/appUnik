@@ -6,6 +6,7 @@ import {
     SegurosVidaSection, 
     SegurosEmpresaSubcategory, 
     FamiliaresSubcategory, 
+    SeguroDeAuto,
     FinanzasSection, 
     EstiloVidaSection,
     ExperienciasSection,
@@ -24,6 +25,7 @@ export default function HomeScreen() {
     const [showGastosMedicosMenores, setShowGastosMedicosMenores] = useState(false);
     const [showSeguroDeVida, setShowSeguroDeVida] = useState(false);
     const [showSeguroVidaFamiliar, setShowSeguroVidaFamiliar] = useState(false);
+    const [showSeguroDeAuto, setShowSeguroDeAuto] = useState(false);
     
     const categories = [
         { id: 0, name: 'Todo', color: colors.primary[500] },
@@ -44,6 +46,9 @@ export default function HomeScreen() {
         } else if (title === 'Familiares') {
             setSelectedSubcategory('Seguros familiares');
             setShowSubcategories(true);
+        } else if (title === 'Seguro de Auto') {
+            setShowSeguroDeAuto(true);
+            setShowSubcategories(false);
         } else if (title === 'Gastos Médicos Menores') {
             setShowGastosMedicosMenores(true);
             setShowSubcategories(false);
@@ -84,6 +89,13 @@ export default function HomeScreen() {
         setShowSeguroVidaFamiliar(false);
         setSelectedSubcategory('Seguros familiares');
         setShowSubcategories(true);
+    };
+
+    // Función para volver atrás desde Seguro de Auto
+    const handleBackFromSeguroDeAuto = () => {
+        setShowSeguroDeAuto(false);
+        setSelectedSubcategory(null);
+        setShowSubcategories(false);
     };
 
     const renderCategoryTabs = () => {
@@ -242,6 +254,8 @@ export default function HomeScreen() {
                 <SeguroDeVida onBack={handleBackFromSeguroDeVida} />
             ) : showSeguroVidaFamiliar ? (
                 <SeguroVidaFamiliar onBack={handleBackFromSeguroVidaFamiliar} />
+            ) : showSeguroDeAuto ? (
+                <SeguroDeAuto onBack={handleBackFromSeguroDeAuto} />
             ) : (
                 <SafeAreaView style={styles.container}>
                     <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
