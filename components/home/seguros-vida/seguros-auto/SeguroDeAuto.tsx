@@ -9,11 +9,33 @@ interface SeguroDeAutoProps {
 
 export const SeguroDeAuto: React.FC<SeguroDeAutoProps> = ({ onBack }) => {
     const [activeTab, setActiveTab] = useState(1);
+    const [selectedVehicle, setSelectedVehicle] = useState('BMW Serie 2');
 
     const tabs = [
         { id: 0, name: 'Seguros y Asistencias', key: 'seguros' },
-        { id: 1, name: 'Seguro de Auto', key: 'seguro-auto' },
-        { id: 2, name: 'Asistencia Vial', key: 'asistencia-vial' }
+        { id: 1, name: 'Seguro de Auto', key: 'seguro-auto' }
+    ];
+
+    const vehicles = [
+        { id: 1, name: 'BMW Serie 2', selected: true },
+        { id: 2, name: 'Mazda 3', selected: false }
+    ];
+
+    const activeClaimsData = [
+        {
+            id: 1,
+            type: 'Repuesto de cristal',
+            vehicle: 'BMW Serie 2 2024',
+            icon: 'car-outline',
+            selected: false
+        },
+        {
+            id: 2,
+            type: 'Robo de faros',
+            vehicle: 'BMW Serie 2 2024',
+            icon: 'car-outline',
+            selected: true
+        }
     ];
 
     const renderTabContent = () => {
@@ -21,34 +43,96 @@ export const SeguroDeAuto: React.FC<SeguroDeAutoProps> = ({ onBack }) => {
             case 0: // Seguros y Asistencias
                 return (
                     <View style={styles.tabContent}>
-                        <Text style={styles.sectionTitle}>Seguro de Auto</Text>
+                        <Text style={styles.sectionTitle}>Seguros de Auto</Text>
                         
+                        {/* Tus Pólizas Section */}
                         <View style={styles.polizasSection}>
-                            <Text style={styles.polizasTitle}>Tus Pólizas</Text>
-                            
-                            <View style={styles.polizaCard}>
-                                <Text style={styles.polizaPlan}>Cobertura Amplia</Text>
-                                <Text style={styles.polizaDetails}>Plan Vehicular</Text>
-                                <Text style={styles.polizaNumber}>xxxx - xxxx - xxxx - xxxx</Text>
-                                <Text style={styles.polizaType}>Seguro de Auto</Text>
-                                <TouchableOpacity style={styles.detailsButton}>
-                                    <Text style={styles.detailsButtonText}>Ver detalles</Text>
+                            <View style={styles.polizasHeader}>
+                                <Text style={styles.polizasTitle}>Tus Pólizas</Text>
+                                <TouchableOpacity style={styles.nuevaPolizaButton}>
+                                    <Text style={styles.nuevaPolizaButtonText}>Nueva Póliza +</Text>
                                 </TouchableOpacity>
                             </View>
                             
-                            <TouchableOpacity style={styles.reportarButton}>
-                                <Text style={styles.reportarButtonText}>Reporta tu siniestro</Text>
-                            </TouchableOpacity>
+                            {/* Vehicle Selection Tabs */}
+                            <View style={styles.vehicleTabsContainer}>
+                                {vehicles.map((vehicle) => (
+                                    <TouchableOpacity
+                                        key={vehicle.id}
+                                        style={[
+                                            styles.vehicleTab,
+                                            vehicle.selected && styles.selectedVehicleTab
+                                        ]}
+                                        onPress={() => setSelectedVehicle(vehicle.name)}
+                                    >
+                                        <Text style={[
+                                            styles.vehicleTabText,
+                                            vehicle.selected && styles.selectedVehicleTabText
+                                        ]}>
+                                            {vehicle.name}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+
+                            {/* Policy Card */}
+                            <View style={styles.policyCard}>
+                                <View style={styles.policyHeader}>
+                                    <View style={styles.carIconContainer}>
+                                        <Ionicons name="car-outline" size={32} color={colors.primary[500]} />
+                                    </View>
+                                    <View style={styles.policyInfo}>
+                                        <Text style={styles.policyVehicle}>BMW Serie 2 2024</Text>
+                                        <Text style={styles.policyNumber}>xxxx - xxxx - xxxx - xxxx</Text>
+                                        <TouchableOpacity>
+                                            <Text style={styles.verDetallesText}>Ver detalles</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={styles.policyDates}>
+                                        <Text style={styles.policyLabel}>Vencimiento</Text>
+                                        <Text style={styles.policyDate}>2027-12-31</Text>
+                                    </View>
+                                </View>
+                            </View>
                         </View>
-                        
+
+                        {/* Reclamos Activos Section */}
+                        <View style={styles.reclamosSection}>
+                            <View style={styles.reclamosHeader}>
+                                <Text style={styles.reclamosTitle}>Reclamos Activos</Text>
+                                <TouchableOpacity style={styles.reportarSiniestroButton}>
+                                    <Text style={styles.reportarSiniestroText}>Reportar Siniestro +</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            {activeClaimsData.map((claim) => (
+                                <TouchableOpacity 
+                                    key={claim.id}
+                                    style={[
+                                        styles.claimCard,
+                                        claim.selected && styles.selectedClaimCard
+                                    ]}
+                                >
+                                    <View style={styles.claimIconContainer}>
+                                        <Ionicons name={claim.icon as any} size={24} color={colors.primary[500]} />
+                                    </View>
+                                    <View style={styles.claimInfo}>
+                                        <Text style={styles.claimType}>{claim.type}</Text>
+                                        <Text style={styles.claimVehicle}>{claim.vehicle}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+
+                        {/* Contact Section */}
                         <View style={styles.contactSection}>
-                            <Text style={styles.contactSectionTitle}>Contactanos</Text>
+                            <Text style={styles.contactTitle}>contacto</Text>
                             <View style={styles.contactButtons}>
                                 <TouchableOpacity style={styles.contactButton}>
                                     <Ionicons name="call" size={24} color="#FFFFFF" />
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.contactButton}>
-                                    <MaterialIcons name="build" size={24} color="#FFFFFF" />
+                                    <Ionicons name="time" size={24} color="#FFFFFF" />
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.contactButton}>
                                     <Ionicons name="mail" size={24} color="#FFFFFF" />
@@ -61,152 +145,65 @@ export const SeguroDeAuto: React.FC<SeguroDeAutoProps> = ({ onBack }) => {
             case 1: // Seguro de Auto
                 return (
                     <View style={styles.tabContent}>
-                        <Text style={styles.sectionTitle}>Seguro de Auto</Text>
+                        <Text style={styles.sectionTitle}>Seguros de Auto</Text>
                         
-                        <View style={styles.polizasSection}>
-                            <Text style={styles.polizasTitle}>Tus Pólizas</Text>
-                            
-                            <View style={styles.polizaCard}>
-                                <Text style={styles.polizaPlan}>Cobertura Amplia</Text>
-                                <Text style={styles.polizaDetails}>Plan Vehicular</Text>
-                                <Text style={styles.polizaNumber}>xxxx - xxxx - xxxx - xxxx</Text>
-                                <Text style={styles.polizaType}>Seguro de Auto</Text>
-                                <TouchableOpacity style={styles.detailsButton}>
-                                    <Text style={styles.detailsButtonText}>Ver detalles</Text>
-                                </TouchableOpacity>
+                        {/* Policy Card - Simplified for second tab */}
+                        <View style={styles.policyCard}>
+                            <View style={styles.policyHeader}>
+                                <View style={styles.carIconContainer}>
+                                    <Ionicons name="car-outline" size={32} color={colors.primary[500]} />
+                                </View>
+                                <View style={styles.policyInfo}>
+                                    <Text style={styles.policyVehicle}>BMW Serie 2 2024</Text>
+                                    <Text style={styles.policyNumber}>xxxx - xxxx - xxxx - xxxx</Text>
+                                    <TouchableOpacity>
+                                        <Text style={styles.verDetallesText}>Ver detalles</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.policyDates}>
+                                    <Text style={styles.policyLabel}>Vencimiento</Text>
+                                    <Text style={styles.policyDate}>2027-12-31</Text>
+                                </View>
                             </View>
-                            
-                            <TouchableOpacity style={styles.reportarButton}>
-                                <Text style={styles.reportarButtonText}>Reporta tu siniestro</Text>
-                            </TouchableOpacity>
                         </View>
 
-                        {/* Servicios del seguro de auto */}
-                        <View style={styles.servicesSection}>
-                            <Text style={styles.servicesSectionTitle}>Servicios Incluidos</Text>
-                            <View style={styles.servicesGrid}>
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <Ionicons name="car-outline" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Daños Materiales</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <MaterialIcons name="local-hospital" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Gastos Médicos</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <Ionicons name="shield-outline" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Robo Total</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <MaterialIcons name="build" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Asistencia Vial</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <Ionicons name="people-outline" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Responsabilidad Civil</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <MaterialIcons name="gavel" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Defensa Jurídica</Text>
+                        {/* Reclamos Activos Section */}
+                        <View style={styles.reclamosSection}>
+                            <View style={styles.reclamosHeader}>
+                                <Text style={styles.reclamosTitle}>Reclamos Activos</Text>
+                                <TouchableOpacity style={styles.reportarSiniestroButton}>
+                                    <Text style={styles.reportarSiniestroText}>Reportar Siniestro +</Text>
                                 </TouchableOpacity>
                             </View>
+
+                            {activeClaimsData.map((claim) => (
+                                <TouchableOpacity 
+                                    key={claim.id}
+                                    style={[
+                                        styles.claimCard,
+                                        claim.selected && styles.selectedClaimCard
+                                    ]}
+                                >
+                                    <View style={styles.claimIconContainer}>
+                                        <Ionicons name={claim.icon as any} size={24} color={colors.primary[500]} />
+                                    </View>
+                                    <View style={styles.claimInfo}>
+                                        <Text style={styles.claimType}>{claim.type}</Text>
+                                        <Text style={styles.claimVehicle}>{claim.vehicle}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            ))}
                         </View>
-                        
+
+                        {/* Contact Section */}
                         <View style={styles.contactSection}>
-                            <Text style={styles.contactSectionTitle}>Contactanos</Text>
+                            <Text style={styles.contactTitle}>contacto</Text>
                             <View style={styles.contactButtons}>
                                 <TouchableOpacity style={styles.contactButton}>
                                     <Ionicons name="call" size={24} color="#FFFFFF" />
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.contactButton}>
-                                    <MaterialIcons name="build" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="mail" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                );
-            
-            case 2: // Asistencia Vial
-                return (
-                    <View style={styles.tabContent}>
-                        <Text style={styles.sectionTitle}>Asistencia Vial</Text>
-                        
-                        <View style={styles.polizasSection}>
-                            <Text style={styles.polizasTitle}>Servicios de Asistencia</Text>
-                            
-                            <View style={styles.servicesGrid}>
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <MaterialIcons name="build" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Grúa</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <Ionicons name="battery-charging-outline" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Pasa Corriente</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <MaterialIcons name="local-gas-station" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Combustible</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <Ionicons name="key-outline" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Cerrajería</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <MaterialIcons name="tire-repair" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Cambio de Llanta</Text>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity style={styles.serviceItem}>
-                                    <View style={styles.serviceIcon}>
-                                        <Ionicons name="call-outline" size={24} color={colors.primary[500]} />
-                                    </View>
-                                    <Text style={styles.serviceTitle}>Línea de Emergencia</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        
-                        <View style={styles.contactSection}>
-                            <Text style={styles.contactSectionTitle}>Contactanos</Text>
-                            <View style={styles.contactButtons}>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <Ionicons name="call" size={24} color="#FFFFFF" />
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.contactButton}>
-                                    <MaterialIcons name="build" size={24} color="#FFFFFF" />
+                                    <Ionicons name="time" size={24} color="#FFFFFF" />
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.contactButton}>
                                     <Ionicons name="mail" size={24} color="#FFFFFF" />
@@ -338,19 +335,53 @@ const styles = StyleSheet.create({
         marginBottom: 30,
     },
     polizasSection: {
-        marginBottom: 40,
+        marginBottom: 30,
+    },
+    polizasHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 16,
     },
     polizasTitle: {
         fontSize: 18,
         fontWeight: '600',
         color: '#333',
-        marginBottom: 20,
-        textAlign: 'left',
     },
-    polizaCard: {
+    nuevaPolizaButton: {
+        backgroundColor: 'transparent',
+    },
+    nuevaPolizaButtonText: {
+        color: colors.primary[500],
+        fontSize: 14,
+        fontWeight: '500',
+    },
+    vehicleTabsContainer: {
+        flexDirection: 'row',
+        marginBottom: 16,
+        gap: 12,
+    },
+    vehicleTab: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderRadius: 20,
+        backgroundColor: '#E5E5E5',
+    },
+    selectedVehicleTab: {
+        backgroundColor: '#333',
+    },
+    vehicleTabText: {
+        fontSize: 14,
+        color: '#666',
+        fontWeight: '500',
+    },
+    selectedVehicleTabText: {
+        color: '#FFFFFF',
+    },
+    policyCard: {
         backgroundColor: '#FFFFFF',
         borderRadius: 12,
-        padding: 20,
+        padding: 16,
         marginBottom: 20,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -360,101 +391,114 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: colors.primary[300],
     },
-    polizaPlan: {
+    policyHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    carIconContainer: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: '#F8F9FF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 16,
+    },
+    policyInfo: {
+        flex: 1,
+    },
+    policyVehicle: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#333',
+        marginBottom: 4,
+    },
+    policyNumber: {
+        fontSize: 14,
+        color: '#666',
+        marginBottom: 8,
+    },
+    verDetallesText: {
+        fontSize: 14,
+        color: colors.primary[500],
+        fontWeight: '500',
+    },
+    policyDates: {
+        alignItems: 'flex-end',
+    },
+    policyLabel: {
+        fontSize: 12,
+        color: '#666',
+        marginBottom: 2,
+    },
+    policyDate: {
+        fontSize: 14,
+        color: '#333',
+        fontWeight: '500',
+    },
+    reclamosSection: {
+        marginBottom: 30,
+    },
+    reclamosHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 16,
+    },
+    reclamosTitle: {
         fontSize: 18,
         fontWeight: '600',
         color: '#333',
-        marginBottom: 8,
     },
-    polizaDetails: {
-        fontSize: 14,
-        color: '#666',
-        marginBottom: 12,
+    reportarSiniestroButton: {
+        backgroundColor: 'transparent',
     },
-    polizaNumber: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#666',
-        marginBottom: 8,
-    },
-    polizaType: {
-        fontSize: 14,
-        color: '#666',
-        marginBottom: 16,
-    },
-    detailsButton: {
-        alignSelf: 'flex-end',
-    },
-    detailsButtonText: {
+    reportarSiniestroText: {
         color: colors.primary[500],
         fontSize: 14,
-        fontWeight: '600',
+        fontWeight: '500',
     },
-    reportarButton: {
-        backgroundColor: colors.primary[400],
-        borderRadius: 25,
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        alignSelf: 'center',
-        marginBottom: 30,
-    },
-    reportarButtonText: {
-        color: '#FFFFFF',
-        fontSize: 16,
-        fontWeight: '600',
-        textAlign: 'center',
-    },
-    servicesSection: {
-        marginBottom: 30,
-    },
-    servicesSectionTitle: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#333',
-        marginBottom: 16,
-        textAlign: 'left',
-    },
-    servicesGrid: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        gap: 8,
-    },
-    serviceItem: {
-        width: '31%',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 16,
-        padding: 12,
-        alignItems: 'center',
+    claimCard: {
+        backgroundColor: '#F5F5F5',
+        borderRadius: 12,
+        padding: 16,
         marginBottom: 12,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.08,
-        shadowRadius: 8,
-        elevation: 3,
-        minHeight: 100,
-        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 2,
+        borderColor: 'transparent',
     },
-    serviceIcon: {
+    selectedClaimCard: {
+        borderColor: colors.primary[500],
+        backgroundColor: '#FFFFFF',
+    },
+    claimIconContainer: {
         width: 40,
         height: 40,
         borderRadius: 20,
         backgroundColor: '#F8F9FF',
-        alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 6,
+        alignItems: 'center',
+        marginRight: 16,
     },
-    serviceTitle: {
-        fontSize: 11,
-        textAlign: 'center',
-        color: '#333',
+    claimInfo: {
+        flex: 1,
+    },
+    claimType: {
+        fontSize: 16,
         fontWeight: '500',
-        lineHeight: 13,
+        color: '#333',
+        marginBottom: 4,
+    },
+    claimVehicle: {
+        fontSize: 14,
+        color: '#666',
     },
     contactSection: {
         marginTop: 20,
+        alignItems: 'center',
     },
-    contactSectionTitle: {
+    contactTitle: {
         fontSize: 16,
         fontWeight: '600',
         color: '#333',
